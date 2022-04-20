@@ -8,6 +8,271 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/button16"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="X"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button29"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button29"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="C"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button30"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button33"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="W"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button16"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button34"
+        android:layout_width="74dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="ENTER"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button30"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="V"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button14"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button31"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="84dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="N"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button14"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="3dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="B"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button31"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="K"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button24"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="G"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button9"
+        app:layout_constraintTop_toBottomOf="@+id/button21"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="S"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button18"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="Q"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button11"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="J"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button10"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button23"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="D"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button11"
+        app:layout_constraintTop_toBottomOf="@+id/button19"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="F"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button8"
+        app:layout_constraintTop_toBottomOf="@+id/button20"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="H"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/button22"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="L"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/button13"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintTop_toBottomOf="@+id/button25"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button13"
+        android:layout_width="37dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="M"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/button26"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
         android:id="@+id/button"
         android:layout_width="37dp"
         android:layout_height="60dp"
