@@ -7,16 +7,21 @@ import android.widget.TextView;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
     String word = "appel";
     int lettercounter;
+    ArrayList<String> possibleWords = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Collections.addAll(possibleWords, "anker", "kwaad", "speld", "steel", "loper");
     }
 
     public int onBtnEnter_Clicked(String wordEntered)
