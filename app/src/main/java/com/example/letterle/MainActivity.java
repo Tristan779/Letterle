@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +17,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String word = "appel";
-    private List<String> possibleWords;
-    private int column;
-    private int row;
-    private String guessWord = "";
+    String word = "appel";
+    List<String> possibleWords;
+    int column;
+    int row;
+    String guessWord = "";
 
     public TextView getTextView(int x, int y) {
         Resources res = getResources();
@@ -29,17 +29,20 @@ public class MainActivity extends AppCompatActivity {
         return findViewById(id);
     }
 
-    public TextView getButton(String letter) {
-        Resources res = getResources();
-        int id = getResources().getIdentifier("button"+letter.toUpperCase(), "id", this.getPackageName());
-        return findViewById(id);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl");
+        possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu);
+        return true;
     }
 
 
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             guessWord = guessWord + buttonChar.toLowerCase();
             column++;
         }
+        System.out.println(guessWord);
     }
 
     public void onBtnDelete_Clicked(View caller)
@@ -67,80 +71,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setColorLetter(int index, int color){
-        getTextView(index, row).setBackgroundColor(color);
-        getTextView(index, row).setTextColor(Color.WHITE);
-        getButton(Character.toString(guessWord.charAt(index))).setBackgroundColor(color);
-        getButton(Character.toString(guessWord.charAt(index))).setTextColor(Color.WHITE);
-    }
-
-    public void showAnimation(String type) {
-        for (int i = 0; i < 5; i++) {
-            
-            Animation animation = null;
-            if(type == "error") {
-                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.lefttoright);
-            } 
-            else if(type == "won") {
-                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
-            }
-            getTextView(i, row).startAnimation(animation);
-        }
-    }
-
-    public void sendToastMessage(String message){
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-    }
-
-    public int getColorLetter(int index){
-        int color;
-
-        if (word.charAt(index) == guessWord.charAt(index)) {
-            color = Color.parseColor("#6aaa64");
-        }
-        else if (word.contains(Character.toString(guessWord.charAt(index)))){
-            color = Color.parseColor("#c8b558");
-        }
-        else{
-            color = Color.parseColor("#787c7e");
-        }
-        return color;
-    }
-
-
-
 
     public void onBtnEnter_Clicked(View caller)
     {
-        if(guessWord.length() == 5) {
-
-            System.out.println(guessWord + " = " + word);
-            if(guessWord.equals(word)){
-                wordGuessed();
-            }
-
-            if (possibleWords.contains(guessWord)) {
-                for (int i = 0; i < 5; i++) {
-                    setColorLetter(i, getColorLetter(i));
+        if(possibleWords.contains(guessWord)){
+            for (int i = 0; i < 5; i++) {
+                if(word.charAt(i) == guessWord.charAt(i)){
+                    getTextView(i, row).setBackgroundColor(Color.parseColor("#6aaa64"));
                 }
-                row++;
-                column = 0;
-                guessWord = "";
-            }
-            else {
-                sendToastMessage("Not in word list");
-                showAnimation("error");
+                else if(word.contains(Character.toString(guessWord.charAt(i)))){
+                    getTextView(i, row).setBackgroundColor(Color.parseColor("#c8b558"));
+                }
+                else{
+                    getTextView(i, row).setBackgroundColor(Color.parseColor("#787c7e"));
+                }
+                getTextView(i, row).setTextColor(Color.WHITE);
             }
 
-        }
-        else {
-            sendToastMessage("Not enough letters");
-            showAnimation("error");
-        }
-    }
 
-    public void wordGuessed() {
-        sendToastMessage("Great");
-        showAnimation("won");
+            row++;
+            column = 0;
+            guessWord = "";
+        }else{
+            Toast.makeText(getApplicationContext(),"Not in word list",Toast.LENGTH_LONG).show();
+            //Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.lefttoright);
+            //getTextView(0, 0).startAnimation(animation);
+        }
     }
 }

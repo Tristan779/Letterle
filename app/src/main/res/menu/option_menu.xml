@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mainOptionMenu"
+        android:title="STATS"
+        android:icon="@drawable/ic_baseline_leaderboard_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/fourSquare"
+        android:title="fourLetters"
+        android:icon="@drawable/ic_baseline_looks_4_24"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/fiveSquare"
+        android:title="fiveLetters"
+        android:icon="@drawable/ic_baseline_looks_5_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/sixSquare"
+        android:title="sixLetters"
+        android:icon="@drawable/ic_baseline_looks_6_24"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/options"
+        android:title="Colours"
+        app:showAsAction="never">
+
+        <menu>
+
+            <item
+                android:id="@+id/colourOptionOriginal"
+                android:title="Original"/>
+
+            <item
+                android:id="@+id/colourOptionDark"
+                android:title="Dark"/>
+
+            <item
+                android:id="@+id/colourOptionVintage"
+                android:title="Vintage"/>
+
+
+
+        </menu>
+
+    </item>
+</menu>
