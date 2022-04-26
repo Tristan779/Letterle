@@ -2,8 +2,13 @@ package com.example.letterle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -93,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
             else if(type == "won") {
                 animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
             }
+            else if(type == "revealletter") {
+                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.revealletter);
+            }
             getTextView(i, row).startAnimation(animation);
         }
     }
@@ -131,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             if (possibleWords.contains(guessWord)) {
                 for (int i = 0; i < 5; i++) {
                     setColorLetter(i, getColorLetter(i));
+                    showAnimation("revealletter");
                 }
                 row++;
                 column = 0;
@@ -140,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 sendToastMessage("Not in word list");
                 showAnimation("error");
             }
-
         }
         else {
             sendToastMessage("Not enough letters");
@@ -151,5 +159,14 @@ public class MainActivity extends AppCompatActivity {
     public void wordGuessed() {
         sendToastMessage("Great");
         showAnimation("won");
+        showDialog();
+
+    }
+
+    public void showDialog() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.results);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }
