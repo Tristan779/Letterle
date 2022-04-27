@@ -1,17 +1,17 @@
 package com.example.letterle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,13 +22,14 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityDiffFive extends AppCompatActivity {
 
     private String word = "appel";
     private List<String> possibleWords;
     private int column;
     private int row;
     private String guessWord = "";
+    public int difficulty = 5;
 
     public TextView getTextView(int x, int y) {
         Resources res = getResources();
@@ -56,6 +57,49 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch ( (item.getItemId())){
+            case R.id.fourSquare:
+                if(difficulty != 4)
+                {
+                Intent intent = new Intent(this, ActivityDiffFour.class);
+                startActivity(intent);
+                difficulty = 4;
+                }
+
+                return true;
+            case R.id.fiveSquare:
+                if(difficulty != 8){
+                    Intent intent = new Intent(this, MainActivityDiffFive.class);
+                    startActivity(intent);
+                }
+                difficulty = 5;
+                return true;
+            case R.id.sixSquare:
+                if(difficulty != 6)
+                {
+                    Intent intent = new Intent(this, ActivityDiffSix.class);
+                    startActivity(intent);}
+                difficulty = 6;
+                return true;
+            case R.id.colourOptionVintage:
+                setColourOption(2);
+                return true;
+            case R.id.colourOptionDark:
+                setColourOption(1);
+                return true;
+            case R.id.colourOptionOriginal:
+                setColourOption(0);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void setColourOption(int option)
+    {
+        //vintage = 2, dark = 1, original = 0
+    }
 
     public void onBtnLetter_Clicked(View caller)
     {
@@ -93,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
             Animation animation = null;
             if(type == "error") {
-                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.lefttoright);
+                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.lefttoright);
             }
             else if(type == "won") {
-                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.bounce);
             }
             else if(type == "revealletter") {
-                animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.revealletter);
+                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.revealletter);
             }
             getTextView(i, row).startAnimation(animation);
         }
@@ -164,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDialog() {
-        Dialog dialog = new Dialog(MainActivity.this);
+        Dialog dialog = new Dialog(MainActivityDiffFive.this);
         dialog.setContentView(R.layout.results);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();

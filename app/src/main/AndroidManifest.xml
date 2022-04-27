@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Letterle">
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityDiffSix"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityDiffFour"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityDiffFive"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
