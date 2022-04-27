@@ -24,11 +24,11 @@ import java.util.List;
 
 public class MainActivityDiffFive extends AppCompatActivity {
 
-    private String word = "appel";
-    private List<String> possibleWords;
-    private int column;
-    private int row;
-    private String guessWord = "";
+    private String wordFive = "appel";
+    private List<String> possibleWordsDiffFive;
+    public int column;
+    public int row;
+    public String guessWord = "";
     public int difficulty = 5;
 
     public TextView getTextView(int x, int y) {
@@ -47,7 +47,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl");
+        possibleWordsDiffFive = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl");
     }
 
     @Override
@@ -63,25 +63,25 @@ public class MainActivityDiffFive extends AppCompatActivity {
             case R.id.fourSquare:
                 if(difficulty != 4)
                 {
+                    difficulty = 4;
                 Intent intent = new Intent(this, ActivityDiffFour.class);
                 startActivity(intent);
-                difficulty = 4;
                 }
-
                 return true;
             case R.id.fiveSquare:
-                if(difficulty != 8){
+
+                if(difficulty != 8){  //dit moet eig !=5 zijn maar dan flipt dat spel dus is nu 8
+                    difficulty = 5;
                     Intent intent = new Intent(this, MainActivityDiffFive.class);
                     startActivity(intent);
                 }
-                difficulty = 5;
                 return true;
             case R.id.sixSquare:
                 if(difficulty != 6)
                 {
+                    difficulty = 6;
                     Intent intent = new Intent(this, ActivityDiffSix.class);
                     startActivity(intent);}
-                difficulty = 6;
                 return true;
             case R.id.colourOptionVintage:
                 setColourOption(2);
@@ -103,7 +103,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public void onBtnLetter_Clicked(View caller)
     {
-        if (0 <= column && column < 5 ){
+        if (0 <= column && column < difficulty ){
             Button keyButton = findViewById(caller.getId());
             String buttonChar = keyButton.getText().toString();
             TextView textViewNow = getTextView(column, row);
@@ -116,7 +116,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public void onBtnDelete_Clicked(View caller)
     {
-        if (0 < column && column <= 5){
+        if (0 < column && column <= difficulty){
             column--;
             TextView textViewNow = getTextView(column, row);
             textViewNow.setText("");
@@ -133,7 +133,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void showAnimation(String type) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < difficulty; i++) {
 
             Animation animation = null;
             if(type == "error") {
@@ -156,10 +156,10 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public int getColorLetter(int index){
         int color;
 
-        if (word.charAt(index) == guessWord.charAt(index)) {
+        if (wordFive.charAt(index) == guessWord.charAt(index)) {
             color = Color.parseColor("#6aaa64");
         }
-        else if (word.contains(Character.toString(guessWord.charAt(index)))){
+        else if (wordFive.contains(Character.toString(guessWord.charAt(index)))){
             color = Color.parseColor("#c8b558");
         }
         else{
@@ -173,14 +173,14 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public void onBtnEnter_Clicked(View caller)
     {
-        if(guessWord.length() == 5) {
+        if(guessWord.length() == difficulty) {
 
-            System.out.println(guessWord + " = " + word);
-            if(guessWord.equals(word)){
+            System.out.println(guessWord + " = " + wordFive);
+            if(guessWord.equals(wordFive)){
                 wordGuessed();
             }
 
-            if (possibleWords.contains(guessWord)) {
+            if (possibleWordsDiffFive.contains(guessWord)) {
                 for (int i = 0; i < 5; i++) {
                     setColorLetter(i, getColorLetter(i));
                     showAnimation("revealletter");
