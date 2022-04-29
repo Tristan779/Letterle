@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -33,7 +34,6 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public int row;
     private ResultsDialog resultsDialog;
     public int difficulty;
-    private final Resources res = getResources();
 
 
     /*
@@ -43,17 +43,17 @@ public class MainActivityDiffFive extends AppCompatActivity {
     */
 
     public TextView getTextView(int x, int y) {
-        int id = res.getIdentifier("textViewLetter_"+y+""+x, "id", this.getPackageName());
+        int id = getResources().getIdentifier("textViewLetter_"+y+""+x, "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getButton(char letter) {
-        int id = res.getIdentifier("button_"+Character.toUpperCase(letter), "id", this.getPackageName());
+        int id = getResources().getIdentifier("button_"+Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getTextViewButton(char letter) {
-        int id = res.getIdentifier("textViewButton_"+Character.toUpperCase(letter), "id", this.getPackageName());
+        int id = getResources().getIdentifier("textViewButton_"+Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
@@ -230,7 +230,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void resetColorKeyBoard(char c){
-        getButton(c).setBackgroundColor(ResourcesCompat.getColor(res, R.color.light_gray, null));
+        getButton(c).setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.light_gray, null));
         getButton(c).setTextColor(Color.BLACK);
         getTextViewButton(c).setTextColor(Color.BLACK);
     }
@@ -276,7 +276,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void setBackground(TextView view, int drawable){
-        view.setBackground(ResourcesCompat.getDrawable(res, drawable, null));
+        view.setBackground(ResourcesCompat.getDrawable(getResources(), drawable, null));
     }
 
     /*
