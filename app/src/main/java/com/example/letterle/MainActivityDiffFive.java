@@ -2,6 +2,7 @@ package com.example.letterle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,6 +33,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public int row;
     private ResultsDialog resultsDialog;
     public int difficulty;
+    private final Resources res = getResources();
 
 
     /*
@@ -41,22 +43,17 @@ public class MainActivityDiffFive extends AppCompatActivity {
     */
 
     public TextView getTextView(int x, int y) {
-        Resources res = getResources();
         int id = res.getIdentifier("textViewLetter_"+y+""+x, "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getButton(char letter) {
-        Resources res = getResources();
-        int id = getResources().getIdentifier("button_"+Character.toUpperCase(letter), "id", this.getPackageName());
-        System.out.println(id);
+        int id = res.getIdentifier("button_"+Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getTextViewButton(char letter) {
-        Resources res = getResources();
-        int id = getResources().getIdentifier("textViewButton_"+Character.toUpperCase(letter), "id", this.getPackageName());
-        System.out.println(id);
+        int id = res.getIdentifier("textViewButton_"+Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
@@ -109,12 +106,13 @@ public class MainActivityDiffFive extends AppCompatActivity {
             String buttonChar = keyButton.getText().toString();
             TextView textViewNow = getTextView(column, row);
             textViewNow.setText(buttonChar);
-            textViewNow.setBackground(getResources().getDrawable(R.drawable.darkgray_border, null));
+            setBackground(textViewNow, R.drawable.darkgray_border);
             guessWord = guessWord + buttonChar.toLowerCase();
             column++;
 
         }
     }
+
 
 
     public void onBtnDelete_Clicked(View caller)
@@ -123,7 +121,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
             column--;
             TextView textViewNow = getTextView(column, row);
             textViewNow.setText("");
-            textViewNow.setBackground(getResources().getDrawable(R.drawable.lightgray_border, null));
+            setBackground(textViewNow, R.drawable.lightgray_border);
             guessWord = guessWord.substring(0, guessWord.length()-1).toLowerCase();
         }
     }
@@ -163,36 +161,40 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch ( (item.getItemId())){
-            case (R.id.fourSquare):
-                if(difficulty != 4)
-                {
+        switch ((item.getItemId())) {
+            case (R.id.fourSquare) -> {
+                if (difficulty != 4) {
                     Intent intent = new Intent(this, ActivityDiffFour.class);
                     startActivity(intent);
                 }
                 return true;
-            case (R.id.fiveSquare):
-
-                if(difficulty != 5){
+            }
+            case (R.id.fiveSquare) -> {
+                if (difficulty != 5) {
                     Intent intent = new Intent(this, MainActivityDiffFive.class);
                     startActivity(intent);
                 }
                 return true;
-            case (R.id.sixSquare):
-                if(difficulty != 6)
-                {
+            }
+            case (R.id.sixSquare) -> {
+                if (difficulty != 6) {
                     Intent intent = new Intent(this, ActivityDiffSix.class);
-                    startActivity(intent);}
+                    startActivity(intent);
+                }
                 return true;
-            case (R.id.colourOptionVintage):
+            }
+            case (R.id.colourOptionVintage) -> {
                 setColourOption(2);
                 return true;
-            case (R.id.colourOptionDark):
+            }
+            case (R.id.colourOptionDark) -> {
                 setColourOption(1);
                 return true;
-            case (R.id.colourOptionOriginal):
+            }
+            case (R.id.colourOptionOriginal) -> {
                 setColourOption(0);
                 return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -222,13 +224,13 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void resetColorBoard(int x, int y){
-        getTextView(x, y).setBackground(getResources().getDrawable(R.drawable.lightgray_border, null));;
+        setBackground(getTextView(x, y), R.drawable.lightgray_border);
         getTextView(x, y).setText("");
         getTextView(x, y).setTextColor(Color.BLACK);
     }
 
     public void resetColorKeyBoard(char c){
-        getButton(c).setBackgroundColor(getResources().getColor(R.color.light_gray));
+        getButton(c).setBackgroundColor(ResourcesCompat.getColor(res, R.color.light_gray, null));
         getButton(c).setTextColor(Color.BLACK);
         getTextViewButton(c).setTextColor(Color.BLACK);
     }
@@ -253,21 +255,28 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void setupGame(int diff){
-        if(diff == 4){
-            word = "kaka";
-            possibleWords = Arrays.asList("tril", "kunt", "ramp", "pomp", "kort", "kaka");
-            difficulty = 4;
+        switch (diff) {
+            case 4 -> {
+                word = "kaka";
+                possibleWords = Arrays.asList("tril", "kunt", "ramp", "pomp", "kort", "kaka");
+                difficulty = 4;
+            }
+
+            case 5 -> {
+                word = "appel";
+                possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl", "aaaaa");
+                difficulty = 5;
+            }
+            case 6 -> {
+                word = "zwavel";
+                possibleWords = Arrays.asList("ronder", "zwiert", "wolken", "imkers", "zwavel");
+                difficulty = 6;
+            }
         }
-        else if(diff == 5){
-            word = "appel";
-            possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl", "aaaaa");
-            difficulty = 5;
-        }
-        else if(diff == 6){
-            word = "zwavel";
-            possibleWords = Arrays.asList("ronder", "zwiert", "wolken", "imkers", "zwavel");
-            difficulty = 6;
-        }
+    }
+
+    public void setBackground(TextView view, int drawable){
+        view.setBackground(ResourcesCompat.getDrawable(res, drawable, null));
     }
 
     /*
@@ -276,24 +285,23 @@ public class MainActivityDiffFive extends AppCompatActivity {
          ########################################
      */
 
+
+
     public void showAnimation(String type) {
         for (int i = 0; i < difficulty; i++) {
-
-
-
             Animation animation = null;
-            if(type.equals("error")) {
-                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.lefttoright);
-            }
-            else if(type.equals("won")) {
-                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.bounce);
-            }
-            else if(type.equals("revealletter")) {
-                animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.revealletter);
+            switch (type) {
+                case "error" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.lefttoright);
+                case "won" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.bounce);
+                case "revealletter" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.revealletter);
             }
             getTextView(i, row).startAnimation(animation);
+
+
         }
     }
+
+
 
     public void sendToastMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
