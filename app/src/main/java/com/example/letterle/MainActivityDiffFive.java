@@ -70,7 +70,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 return true;
             case R.id.fiveSquare:
 
-                if(difficulty != 8){  //dit moet eig !=5 zijn maar dan flipt dat spel dus is nu 8
+                if(difficulty != 5){
                     difficulty = 5;
                     Intent intent = new Intent(this, MainActivityDiffFive.class);
                     startActivity(intent);

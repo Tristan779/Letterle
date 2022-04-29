@@ -49,7 +49,7 @@ public class ActivityDiffFour extends MainActivityDiffFive {
             }
 
             if (possibleWordsDiffFour.contains(guessWord)) {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < difficulty; i++) {
                     setColorLetter(i, getColorLetter(i));
                     showAnimation("revealletter");
                 }
