@@ -13,7 +13,7 @@
         android:id="@+id/textView_played_nr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="5dp"
@@ -48,7 +48,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textView_current_streak_nr"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView_played_nr"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_statistics"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView_max_streak_nr"
@@ -74,9 +75,9 @@
         android:id="@+id/textView_current_streak_nr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:gravity="center"
@@ -251,20 +252,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_5" />
 
     <Button
-        android:id="@+id/button_restart"
+        android:id="@+id/buttonRestart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
+        android:onClick="onBtnPlayAgain_Clicked"
         android:text="PLAY AGAIN"
         app:backgroundTint="#6aaa64"
-        app:layout_constraintEnd_toStartOf="@+id/button_exit"
+        app:layout_constraintEnd_toStartOf="@+id/buttonExit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
 
     <Button
-        android:id="@+id/button_exit"
+        android:id="@+id/buttonExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -273,7 +275,7 @@
         android:text="EXIT"
         app:backgroundTint="#c8b558"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_restart"
+        app:layout_constraintStart_toEndOf="@+id/buttonRestart"
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
 
     <ProgressBar
