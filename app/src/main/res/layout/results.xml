@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
         android:id="@+id/textView_win_nr"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textView_current_streak_nr"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView_played_nr"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics"
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView_current_streak_nr"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
         android:id="@+id/textView_current_streak_nr"
@@ -89,10 +89,10 @@
         app:layout_constraintEnd_toStartOf="@+id/textView_max_streak_nr"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView_win_nr"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
-        android:id="@+id/textView_statistics"
+        android:id="@+id/textViewConfirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textView_guess_distribution"
+        app:layout_constraintBottom_toTopOf="@+id/textViewConfirmationText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent">
@@ -161,7 +161,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView_guess_distribution"
+        android:id="@+id/textViewConfirmationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
@@ -171,7 +171,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_statistics" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
         android:id="@+id/textView_bar_1"
@@ -184,7 +184,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_guess_distribution" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText" />
 
     <TextView
         android:id="@+id/textView_bar_2"
@@ -252,7 +252,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_5" />
 
     <Button
-        android:id="@+id/buttonRestart"
+        android:id="@+id/buttonNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -261,12 +261,12 @@
         android:onClick="onBtnPlayAgain_Clicked"
         android:text="PLAY AGAIN"
         app:backgroundTint="#6aaa64"
-        app:layout_constraintEnd_toStartOf="@+id/buttonExit"
+        app:layout_constraintEnd_toStartOf="@+id/buttonYes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
 
     <Button
-        android:id="@+id/buttonExit"
+        android:id="@+id/buttonYes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -275,7 +275,7 @@
         android:text="EXIT"
         app:backgroundTint="#c8b558"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonRestart"
+        app:layout_constraintStart_toEndOf="@+id/buttonNo"
         app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
 
     <ProgressBar
@@ -286,7 +286,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/textView_bar_1"
-        app:layout_constraintTop_toBottomOf="@+id/textView_guess_distribution" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText" />
 
     <ProgressBar
         android:id="@+id/progressBar_2"

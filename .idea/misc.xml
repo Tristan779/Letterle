@@ -14,7 +14,8 @@
         <entry key="app/src/main/res/drawable/yellow.xml" value="0.166" />
         <entry key="app/src/main/res/layout/ textview_border.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3462142944335938" />
-        <entry key="app/src/main/res/layout/results.xml" value="0.6274420751284246" />
+        <entry key="app/src/main/res/layout/confirmation.xml" value="0.3264880857605865" />
+        <entry key="app/src/main/res/layout/results.xml" value="0.3130988134096746" />
         <entry key="app/src/main/res/layout/switch_item.xml" value="0.1175925925925926" />
         <entry key="app/src/main/res/layout/textview_border.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.41794871794871796" />
@@ -22,10 +23,13 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressionsComponent">
+    <option name="suppComments" value="[]" />
   </component>
 </project>

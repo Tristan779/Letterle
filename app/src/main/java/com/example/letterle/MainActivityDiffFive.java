@@ -1,12 +1,6 @@
 package com.example.letterle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +12,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +30,9 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public int column;
     public int row;
-    private ResultsDialog resultsDialog;
+    private CustomDialog resultsDialog;
+    private CustomDialog confirmationDialog;
+    private Intent nextIntent;
     public int difficulty;
 
 
@@ -43,30 +43,28 @@ public class MainActivityDiffFive extends AppCompatActivity {
     */
 
     public TextView getTextView(int x, int y) {
-        int id = getResources().getIdentifier("textViewLetter_"+y+""+x, "id", this.getPackageName());
+        int id = getResources().getIdentifier("textViewLetter_" + y + "" + x, "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getButton(char letter) {
-        int id = getResources().getIdentifier("button_"+Character.toUpperCase(letter), "id", this.getPackageName());
+        int id = getResources().getIdentifier("button_" + Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
     public TextView getTextViewButton(char letter) {
-        int id = getResources().getIdentifier("textViewButton_"+Character.toUpperCase(letter), "id", this.getPackageName());
+        int id = getResources().getIdentifier("textViewButton_" + Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
 
-    public int getColorLetter(int index){
+    public int getColorLetter(int index) {
         int color;
 
         if (word.charAt(index) == guessWord.charAt(index)) {
             color = Color.parseColor("#6aaa64");
-        }
-        else if (word.contains(Character.toString(guessWord.charAt(index)))){
+        } else if (word.contains(Character.toString(guessWord.charAt(index)))) {
             color = Color.parseColor("#c8b558");
-        }
-        else{
+        } else {
             color = Color.parseColor("#787c7e");
         }
         return color;
@@ -82,7 +80,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diff_five_main);
-        resultsDialog = new ResultsDialog(this);
+        resultsDialog = new CustomDialog(this, R.layout.results);
+        confirmationDialog = new CustomDialog(this, R.layout.confirmation);
         setupGame(5);
     }
 
@@ -99,9 +98,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
          ########################################
      */
 
-    public void onBtnLetter_Clicked(View caller)
-    {
-        if (0 <= column && column < difficulty ){
+    public void onBtnLetter_Clicked(View caller) {
+        if (0 <= column && column < difficulty) {
             Button keyButton = findViewById(caller.getId());
             String buttonChar = keyButton.getText().toString();
             TextView textViewNow = getTextView(column, row);
@@ -114,23 +112,20 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
 
-
-    public void onBtnDelete_Clicked(View caller)
-    {
-        if (0 < column && column <= difficulty){
+    public void onBtnDelete_Clicked(View caller) {
+        if (0 < column && column <= difficulty) {
             column--;
             TextView textViewNow = getTextView(column, row);
             textViewNow.setText("");
             setBackground(textViewNow, R.drawable.lightgray_border);
-            guessWord = guessWord.substring(0, guessWord.length()-1).toLowerCase();
+            guessWord = guessWord.substring(0, guessWord.length() - 1).toLowerCase();
         }
     }
 
-    public void onBtnEnter_Clicked(View caller)
-    {
-        if(guessWord.length() == difficulty) {
+    public void onBtnEnter_Clicked(View caller) {
+        if (guessWord.length() == difficulty) {
 
-            if(guessWord.equals(word)){
+            if (guessWord.equals(word)) {
                 wordGuessed();
             }
 
@@ -142,13 +137,11 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 row++;
                 column = 0;
                 guessWord = "";
-            }
-            else {
+            } else {
                 sendToastMessage("Not in word list");
                 showAnimation("error");
             }
-        }
-        else {
+        } else {
             sendToastMessage("Not enough letters");
             showAnimation("error");
         }
@@ -159,27 +152,49 @@ public class MainActivityDiffFive extends AppCompatActivity {
         resetGame();
     }
 
+    public void onBtnYes_Clicked(View caller) {
+        confirmationDialog.dialog.cancel();
+        startActivity(nextIntent);
+    }
+
+    public void onBtnNo_Clicked(View caller) {
+        confirmationDialog.dialog.cancel();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch ((item.getItemId())) {
             case (R.id.fourSquare) -> {
                 if (difficulty != 4) {
-                    Intent intent = new Intent(this, ActivityDiffFour.class);
-                    startActivity(intent);
+                    nextIntent = new Intent(this, ActivityDiffFour.class);
+                    if(row > 0){
+                        confirmationDialog.showDialog();
+                    } else {
+                        startActivity(nextIntent);
+                    }
                 }
                 return true;
             }
             case (R.id.fiveSquare) -> {
                 if (difficulty != 5) {
-                    Intent intent = new Intent(this, MainActivityDiffFive.class);
-                    startActivity(intent);
+                    nextIntent = new Intent(this, MainActivityDiffFive.class);
+                    if(row > 0){
+                        confirmationDialog.showDialog();
+                    } else {
+                        startActivity(nextIntent);
+                    }
                 }
                 return true;
             }
             case (R.id.sixSquare) -> {
                 if (difficulty != 6) {
-                    Intent intent = new Intent(this, ActivityDiffSix.class);
-                    startActivity(intent);
+                    nextIntent = new Intent(this, ActivityDiffSix.class);
+                    if(row > 0){
+                        confirmationDialog.showDialog();
+                    } else {
+                        startActivity(nextIntent);
+                    }
                 }
                 return true;
             }
@@ -208,14 +223,14 @@ public class MainActivityDiffFive extends AppCompatActivity {
      */
 
     private void resetGame() {
-        for (int row = 0; row < 6; row++){
-            for (int column = 0; column < difficulty; column++){
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < difficulty; column++) {
                 resetColorBoard(column, row);
 
             }
         }
 
-        for (char c = 'a'; c <= 'z'; c++){
+        for (char c = 'a'; c <= 'z'; c++) {
             resetColorKeyBoard(c);
 
         }
@@ -223,13 +238,13 @@ public class MainActivityDiffFive extends AppCompatActivity {
         column = 0;
     }
 
-    public void resetColorBoard(int x, int y){
+    public void resetColorBoard(int x, int y) {
         setBackground(getTextView(x, y), R.drawable.lightgray_border);
         getTextView(x, y).setText("");
         getTextView(x, y).setTextColor(Color.BLACK);
     }
 
-    public void resetColorKeyBoard(char c){
+    public void resetColorKeyBoard(char c) {
         getButton(c).setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.light_gray, null));
         getButton(c).setTextColor(Color.BLACK);
         getTextViewButton(c).setTextColor(Color.BLACK);
@@ -241,7 +256,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
          ########################################
      */
 
-    public void setColorLetter(int index, int color){
+    public void setColorLetter(int index, int color) {
         getTextView(index, row).setBackgroundColor(color);
         getTextView(index, row).setTextColor(Color.WHITE);
         getButton(guessWord.charAt(index)).setBackgroundColor(color);
@@ -249,12 +264,11 @@ public class MainActivityDiffFive extends AppCompatActivity {
         getTextViewButton(guessWord.charAt(index)).setTextColor(Color.WHITE);
     }
 
-    public void setColourOption(int option)
-    {
+    public void setColourOption(int option) {
         //vintage = 2, dark = 1, original = 0
     }
 
-    public void setupGame(int diff){
+    public void setupGame(int diff) {
         switch (diff) {
             case 4 -> {
                 word = "kaka";
@@ -275,7 +289,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
         }
     }
 
-    public void setBackground(TextView view, int drawable){
+    public void setBackground(TextView view, int drawable) {
         view.setBackground(ResourcesCompat.getDrawable(getResources(), drawable, null));
     }
 
@@ -284,7 +298,6 @@ public class MainActivityDiffFive extends AppCompatActivity {
          #               Other                  #
          ########################################
      */
-
 
 
     public void showAnimation(String type) {
@@ -302,15 +315,14 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
 
-
-    public void sendToastMessage(String message){
+    public void sendToastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     public void wordGuessed() {
         sendToastMessage("Great");
         showAnimation("won");
-        resultsDialog.showResultsDialog();
+        resultsDialog.showDialog();
     }
 
 }
