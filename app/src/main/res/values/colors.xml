@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="green">#6aaa64</color>
+    <color name="light_green">#9adc92</color>
+    <color name="dark_green">#3b7a38</color>
     <color name="yellow">#c8b558</color>
+    <color name="light_yellow">#fde787</color>
+    <color name="dark_yellow">#95862a</color>
     <color name="dark_gray">#787c7e</color>
     <color name="light_gray">#d3d6da</color>
     <color name="black">#FF000000</color>
@@ -9,3 +13,4 @@
 
 
 </resources>
+

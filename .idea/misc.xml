@@ -8,11 +8,18 @@
         <entry key="app/src/main/res/drawable/darkgray_border.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/default_background.xml" value="1.3987910766601563" />
         <entry key="app/src/main/res/drawable/gray.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/gray_tile.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/green.xml" value="0.8960155639648438" />
+        <entry key="app/src/main/res/drawable/green_tile.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.127" />
+        <entry key="app/src/main/res/drawable/lightgray_border.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_corners.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/typed_background.xml" value="1.0008433837890625" />
         <entry key="app/src/main/res/drawable/yellow.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/yellow_tile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ textview_border.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/activity_diff_five_main.xml" value="0.25317028985507245" />
+        <entry key="app/src/main/res/layout/activity_diff_six.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3462142944335938" />
         <entry key="app/src/main/res/layout/confirmation.xml" value="0.3264880857605865" />
         <entry key="app/src/main/res/layout/results.xml" value="0.3130988134096746" />
@@ -20,6 +27,8 @@
         <entry key="app/src/main/res/layout/textview_border.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.41794871794871796" />
         <entry key="app/src/main/res/menu/option_menu.xml" value="0.41794871794871796" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

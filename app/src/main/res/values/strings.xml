@@ -28,5 +28,6 @@
     <string name="p">P</string>
     <string name="t">T</string>
     <string name="delete">DEL</string>
-    <string name="confirmation">Are you sure you want to exit this difficulty? You will lose your current progress and this will count as a loss!</string>
+    <string name="confirmation_1">Are you sure you want to exit this difficulty?</string>
+    <string name="confirmation_2">You will lose your current progress and this will count as a loss!</string>
 </resources>

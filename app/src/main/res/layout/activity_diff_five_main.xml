@@ -673,7 +673,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/a"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/a" />
 
                 <TextView
@@ -708,7 +708,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/z"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/z" />
 
                 <TextView
@@ -743,7 +743,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/e"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/e" />
 
                 <TextView
@@ -778,7 +778,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/r"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/r" />
 
                 <TextView
@@ -813,7 +813,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/t"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/t" />
 
                 <TextView
@@ -848,7 +848,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/y"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/y" />
 
                 <TextView
@@ -883,7 +883,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/u"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/u" />
 
                 <TextView
@@ -918,7 +918,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/i"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/i" />
 
                 <TextView
@@ -953,7 +953,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/o"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/o" />
 
                 <TextView
@@ -988,7 +988,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/p"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/p" />
 
                 <TextView
@@ -1034,7 +1034,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/q"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/q" />
 
                 <TextView
@@ -1069,7 +1069,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/s"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/s" />
 
                 <TextView
@@ -1104,7 +1104,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/d"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/d" />
 
                 <TextView
@@ -1139,7 +1139,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/f"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/f" />
 
                 <TextView
@@ -1174,7 +1174,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/g"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/f" />
 
                 <TextView
@@ -1209,7 +1209,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/h"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/h" />
 
                 <TextView
@@ -1244,7 +1244,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/j"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/j" />
 
                 <TextView
@@ -1279,7 +1279,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/k"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/k" />
 
                 <TextView
@@ -1314,7 +1314,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/l"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/l" />
 
                 <TextView
@@ -1349,7 +1349,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/m"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/m" />
 
                 <TextView
@@ -1428,7 +1428,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/w"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="W" />
 
                 <TextView
@@ -1463,7 +1463,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/x"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/x" />
 
                 <TextView
@@ -1498,7 +1498,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/c"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/c" />
 
                 <TextView
@@ -1533,7 +1533,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/v"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/v" />
 
                 <TextView
@@ -1568,7 +1568,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/b"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/b" />
 
                 <TextView
@@ -1603,7 +1603,7 @@
                     android:layout_marginBottom="2dp"
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/n"
-                    android:onClick="onBtnLetter_Clicked"
+                    android:onClick="onBtnKey_Clicked"
                     android:text="@string/n" />
 
 

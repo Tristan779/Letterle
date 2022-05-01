@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textViewConfirmationText"
+        app:layout_constraintBottom_toTopOf="@+id/textViewConfirmationText_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent">
@@ -161,7 +161,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewConfirmationText"
+        android:id="@+id/textViewConfirmationText_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
@@ -184,7 +184,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText_1" />
 
     <TextView
         android:id="@+id/textView_bar_2"
@@ -286,7 +286,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/textView_bar_1"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText_1" />
 
     <ProgressBar
         android:id="@+id/progressBar_2"
