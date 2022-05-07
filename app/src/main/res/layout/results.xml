@@ -10,91 +10,75 @@
 
 
     <TextView
-        android:id="@+id/textView_played_nr"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewPlayed_nr"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayout_stats"
-        app:layout_constraintEnd_toStartOf="@+id/textView_win_nr"
+        app:layout_constraintEnd_toStartOf="@+id/textViewWin_nr"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
-        android:id="@+id/textView_win_nr"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewWin_nr"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayout_stats"
-        app:layout_constraintEnd_toStartOf="@+id/textView_current_streak_nr"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCurrentStreak_nr"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView_played_nr"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView_max_streak_nr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayout_stats"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView_current_streak_nr"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlayed_nr"
         app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
-        android:id="@+id/textView_current_streak_nr"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewMaxStreak_nr"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayout_stats"
-        app:layout_constraintEnd_toStartOf="@+id/textView_max_streak_nr"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView_win_nr"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentStreak_nr"
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
+
+    <TextView
+        android:id="@+id/textViewCurrentStreak_nr"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMaxStreak_nr"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewWin_nr"
         app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
 
     <TextView
         android:id="@+id/textViewConfirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="STATISTICS"
         android:textColor="@color/black"
@@ -103,78 +87,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-
-        android:id="@+id/LinearLayout_stats"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textViewWon"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textViewConfirmationText_1"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Win %"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCurrentStreak"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_played"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWin_nr" />
+
+    <TextView
+        android:id="@+id/textViewMaxStreak"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Max Streak"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentStreak"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMaxStreak_nr" />
 
-        <TextView
-            android:id="@+id/textView_played"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Played"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            android:textStyle="normal" />
+    <TextView
+        android:id="@+id/textViewCurrentStreak"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Current Streak"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMaxStreak"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewWon"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentStreak_nr" />
 
-        <TextView
-            android:id="@+id/textView_won"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Win %"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textView_current_streak"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Current Streak"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textView_max_streak"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Max Streak"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            android:textStyle="normal" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView_played"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Played"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/textViewWon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlayed_nr" />
 
     <TextView
         android:id="@+id/textViewConfirmationText_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="GUESS DISTRIBUTION"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmation" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentStreak" />
 
     <TextView
-        android:id="@+id/textView_bar_1"
+        android:id="@+id/textViewBar_1"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -187,7 +175,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText_1" />
 
     <TextView
-        android:id="@+id/textView_bar_2"
+        android:id="@+id/textViewBar_2"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -197,10 +185,10 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_1" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_1" />
 
     <TextView
-        android:id="@+id/textView_bar_3"
+        android:id="@+id/textViewBar_3"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -210,10 +198,10 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_2" />
 
     <TextView
-        android:id="@+id/textView_bar_4"
+        android:id="@+id/textViewBar_4"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -223,10 +211,10 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_3" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_3" />
 
     <TextView
-        android:id="@+id/textView_bar_5"
+        android:id="@+id/textViewBar_5"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -236,10 +224,10 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_4" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_4" />
 
     <TextView
-        android:id="@+id/textView_bar_6"
+        android:id="@+id/textViewBar_6"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="20dp"
@@ -249,7 +237,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_5" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_5" />
 
     <Button
         android:id="@+id/buttonNo"
@@ -263,7 +251,7 @@
         app:backgroundTint="#6aaa64"
         app:layout_constraintEnd_toStartOf="@+id/buttonYes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_6" />
 
     <Button
         android:id="@+id/buttonYes"
@@ -276,7 +264,7 @@
         app:backgroundTint="#c8b558"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonNo"
-        app:layout_constraintTop_toBottomOf="@+id/textView_bar_6" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBar_6" />
 
     <ProgressBar
         android:id="@+id/progressBar_1"
@@ -285,7 +273,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_1"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_1"
         app:layout_constraintTop_toBottomOf="@+id/textViewConfirmationText_1" />
 
     <ProgressBar
@@ -295,7 +283,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_2"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_2"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_1" />
 
     <ProgressBar
@@ -305,7 +293,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_3"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_3"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_2" />
 
     <ProgressBar
@@ -315,7 +303,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_4"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_4"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_3" />
 
     <ProgressBar
@@ -325,7 +313,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_5"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_5"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_4" />
 
     <ProgressBar
@@ -335,7 +323,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_bar_6"
+        app:layout_constraintStart_toEndOf="@+id/textViewBar_6"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

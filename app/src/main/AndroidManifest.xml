@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.letterle">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.letterle" >
 
     <application
         android:allowBackup="true"
@@ -8,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Letterle">
+        android:theme="@style/Theme.Letterle" >
         <activity
             android:name=".ActivityDiffSix"
             android:exported="false" />
@@ -17,7 +18,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivityDiffFive"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

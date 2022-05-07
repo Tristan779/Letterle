@@ -18,13 +18,22 @@
         <entry key="app/src/main/res/drawable/yellow.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/yellow_tile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ textview_border.xml" value="0.2586050724637681" />
-        <entry key="app/src/main/res/layout/activity_diff_five_main.xml" value="0.25317028985507245" />
+        <entry key="app/src/main/res/layout/activity_a.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/activity_diff_five_main.xml" value="0.20990600585937497" />
+        <entry key="app/src/main/res/layout/activity_diff_four.xml" value="0.35664335664335667" />
         <entry key="app/src/main/res/layout/activity_diff_six.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3462142944335938" />
         <entry key="app/src/main/res/layout/confirmation.xml" value="0.3264880857605865" />
-        <entry key="app/src/main/res/layout/results.xml" value="0.3130988134096746" />
+        <entry key="app/src/main/res/layout/content_main_activityy.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15072685539403213" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/keyboard.xml" value="0.19934143870314083" />
+        <entry key="app/src/main/res/layout/results.xml" value="0.5779440892885809" />
         <entry key="app/src/main/res/layout/switch_item.xml" value="0.1175925925925926" />
         <entry key="app/src/main/res/layout/textview_border.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/title.xml" value="0.47029368082682294" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.17421875" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.41794871794871796" />
         <entry key="app/src/main/res/menu/option_menu.xml" value="0.41794871794871796" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

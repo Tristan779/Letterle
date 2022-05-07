@@ -47,7 +47,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
         return findViewById(id);
     }
 
-    public TextView getKeyButton(char letter) {
+    public Button getKeyButton(char letter) {
         int id = getResources().getIdentifier("button_" + Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
     }
@@ -124,44 +124,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
         }
     }
 
-    /*
-    public void revealLetters(){
-        int color;
-        boolean[] tiles = new boolean[difficulty];
-        List<Character> map = new ArrayList();
-
-        for (int index = 0; index < difficulty; index++) {
-            if (word.charAt(index) == guessWord.charAt(index)) {
-                color = Color.parseColor("#6aaa64");
-                setColorLetter(index, color);
-                tiles[index] = true;
-                map.add(word.charAt(index));
-            }
-        }
-
-        for (int index = 0; index < difficulty; index++) {
-            if (!tiles[index] && word.charAt(index) == guessWord.charAt(index)) {
-                if (!map.contains(word.charAt(index))){
-                    color = Color.parseColor("#c8b558");
-                    setColorLetter(index, color);
-                }
-            }
-        }
-
-        for (int index = 0; index < difficulty; index++) {
-            if (!tiles[index]) {
-                if (!map.contains(word.charAt(index))) {
-                    color = Color.parseColor("#787c7e");
-                    setColorLetter(index, color);
-                }
-            }
-        }
-    }
-
-     */
-
     public void onBtnEnter_Clicked(View caller) {
-        String type;
         if (guessWord.length() == difficulty) {
 
             if (guessWord.equals(word)) {
@@ -204,6 +167,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch ((item.getItemId())) {
@@ -215,6 +179,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
                     } else {
                         startActivity(nextIntent);
                     }
+                } else {
+                    sendToastMessage("Difficulty is already 4");
                 }
                 return true;
             }
@@ -226,6 +192,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
                     } else {
                         startActivity(nextIntent);
                     }
+                } else {
+                    sendToastMessage("Difficulty is already 5");
                 }
                 return true;
             }
@@ -237,6 +205,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
                     } else {
                         startActivity(nextIntent);
                     }
+                } else {
+                    sendToastMessage("Difficulty is already 6");
                 }
                 return true;
             }
@@ -292,6 +262,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
         getTextKeyButton(c).setTextColor(Color.BLACK);
     }
 
+
     /*
          ########################################
          #                 Set                  #
@@ -336,14 +307,12 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public void setColorTile(int index) {
         if (word.charAt(index) == guessWord.charAt(index)) {
             setBackground(getTile(index, row), R.drawable.green_tile);
-            getTile(index, row).setTextColor(Color.WHITE);
         } else if (word.contains(Character.toString(guessWord.charAt(index)))) {
             setBackground(getTile(index, row), R.drawable.yellow_tile);
-            getTile(index, row).setTextColor(Color.WHITE);
         } else {
             setBackground(getTile(index, row), R.drawable.gray_tile);
-            getTile(index, row).setTextColor(Color.WHITE);
         }
+       getTile(index, row).setTextColor(Color.WHITE);
     }
 
     /*
