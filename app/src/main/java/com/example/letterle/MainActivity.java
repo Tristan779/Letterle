@@ -341,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
         sendToastMessage("Great");
         showAnimation("won", row);
         resultsDialog.show();
+        resultsDialog.updateDialog();
     }
 
 
