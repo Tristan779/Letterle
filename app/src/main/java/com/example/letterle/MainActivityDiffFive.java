@@ -1,5 +1,6 @@
 package com.example.letterle;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,8 +31,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public int column;
     public int row;
-    private CustomDialog resultsDialog;
-    private CustomDialog confirmationDialog;
+    private ResultsDialog resultsDialog;
+    private ConfirmationDialog confirmationDialog;
     private Intent nextIntent;
     public int difficulty;
 
@@ -82,8 +83,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diff_five_main);
-        resultsDialog = new CustomDialog(this, R.layout.results);
-        confirmationDialog = new CustomDialog(this, R.layout.confirmation);
+        resultsDialog = new ResultsDialog(this);
+        confirmationDialog = new ConfirmationDialog(this);
         setupGame(5);
     }
 
@@ -153,19 +154,18 @@ public class MainActivityDiffFive extends AppCompatActivity {
     }
 
     public void onBtnPlayAgain_Clicked(View caller) {
-        resultsDialog.dialog.cancel();
+        resultsDialog.cancel();
         resetGame();
     }
 
     public void onBtnYes_Clicked(View caller) {
-        confirmationDialog.dialog.cancel();
+        confirmationDialog.cancel();
         startActivity(nextIntent);
     }
 
     public void onBtnNo_Clicked(View caller) {
-        confirmationDialog.dialog.cancel();
+        confirmationDialog.cancel();
     }
-
 
 
     @Override
@@ -175,7 +175,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 if (difficulty != 4) {
                     nextIntent = new Intent(this, ActivityDiffFour.class);
                     if(row > 0){
-                        confirmationDialog.showDialog();
+                        confirmationDialog.show();
                     } else {
                         startActivity(nextIntent);
                     }
@@ -188,7 +188,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 if (difficulty != 5) {
                     nextIntent = new Intent(this, MainActivityDiffFive.class);
                     if(row > 0){
-                        confirmationDialog.showDialog();
+                        confirmationDialog.show();
                     } else {
                         startActivity(nextIntent);
                     }
@@ -201,7 +201,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 if (difficulty != 6) {
                     nextIntent = new Intent(this, ActivityDiffSix.class);
                     if(row > 0){
-                        confirmationDialog.showDialog();
+                        confirmationDialog.show();
                     } else {
                         startActivity(nextIntent);
                     }
@@ -346,7 +346,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public void wordGuessed() {
         sendToastMessage("Great");
         showAnimation("won", row);
-        resultsDialog.showDialog();
+        resultsDialog.show();
     }
 
 
