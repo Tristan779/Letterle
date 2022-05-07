@@ -6,7 +6,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class ResultsDialog extends Dialog{
@@ -30,8 +36,8 @@ public class ResultsDialog extends Dialog{
 
 
 
-    public TextView getTest(int index) {
-        int id = context.getResources().getIdentifier("textViewBar_" + 1, "id", context.getPackageName());
+    public ProgressBar getProgressBar(int index) {
+        int id = context.getResources().getIdentifier("progressBar_" + index, "id", context.getPackageName());
         return findViewById(id);
     }
 
@@ -48,7 +54,14 @@ public class ResultsDialog extends Dialog{
         win.setText("4");
         played.setText("30");
 
-        getTest(1).setText("HALL0");
+        //test lijst
+        List<Integer> list = new ArrayList<>(
+                Arrays.asList(1, 3, 5, 9, 4, 8));
+
+        for(int i = 1; i < 7; i++){
+            float fill = (float) list.get(i-1)/ (float) Collections.max(list);
+            getProgressBar(i).getLayoutParams().width = Math.round(500 * fill);
+        }
 
     }
 

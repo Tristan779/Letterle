@@ -324,7 +324,6 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public void showAnimation(String type, int row) {
         for (int i = 0; i < difficulty; i++) {
-            System.out.println("o");
             Animation animation = null;
             switch (type) {
                 case "error" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.lefttoright);
