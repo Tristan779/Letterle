@@ -10,23 +10,23 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/fourSquare"
-        android:title="fourLetters"
+        android:id="@+id/optionDifficulty_4"
         android:icon="@drawable/ic_baseline_looks_4_24"
-        app:showAsAction="always"/>
+        android:title="4"
+        app:showAsAction="always" />
 
 
     <item
-        android:id="@+id/fiveSquare"
-        android:title="fiveLetters"
+        android:id="@+id/optionDifficulty_5"
         android:icon="@drawable/ic_baseline_looks_5_24"
-        app:showAsAction="always"/>
+        android:title="5"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/sixSquare"
-        android:title="sixLetters"
+        android:id="@+id/optionDifficulty_6"
         android:icon="@drawable/ic_baseline_looks_6_24"
-        app:showAsAction="always"/>
+        android:title="6"
+        app:showAsAction="always" />
 
 
     <item

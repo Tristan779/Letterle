@@ -20,11 +20,14 @@
         <entry key="app/src/main/res/layout/ textview_border.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/activity_a.xml" value="0.15589135424636572" />
         <entry key="app/src/main/res/layout/activity_diff_five_main.xml" value="0.20990600585937497" />
-        <entry key="app/src/main/res/layout/activity_diff_four.xml" value="0.35664335664335667" />
-        <entry key="app/src/main/res/layout/activity_diff_six.xml" value="0.25317028985507245" />
+        <entry key="app/src/main/res/layout/activity_diff_four.xml" value="0.1302014010769504" />
+        <entry key="app/src/main/res/layout/activity_diff_six.xml" value="0.12567395196444744" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3462142944335938" />
         <entry key="app/src/main/res/layout/confirmation.xml" value="0.3264880857605865" />
         <entry key="app/src/main/res/layout/content_main_activityy.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/diff_five.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/layout/diff_four.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/layout/diff_six.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.15589135424636572" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15072685539403213" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15589135424636572" />

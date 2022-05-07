@@ -1,9 +1,8 @@
 package com.example.letterle;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,12 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivityDiffFive extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     //------------------------------------------------------------------
     private String word = "";
@@ -33,8 +33,8 @@ public class MainActivityDiffFive extends AppCompatActivity {
     public int row;
     private ResultsDialog resultsDialog;
     private ConfirmationDialog confirmationDialog;
-    private Intent nextIntent;
     public int difficulty;
+    private int nextDifficulty;
 
 
     /*
@@ -82,10 +82,10 @@ public class MainActivityDiffFive extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diff_five_main);
+        setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
         confirmationDialog = new ConfirmationDialog(this);
-        setupGame(5);
+        setupNewGame(5);
     }
 
     @Override
@@ -133,7 +133,6 @@ public class MainActivityDiffFive extends AppCompatActivity {
                 showAnimation("won", row);
 
             }
-
             if (possibleWords.contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
                     setColorKey(index, getColorKey(index));
@@ -155,72 +154,56 @@ public class MainActivityDiffFive extends AppCompatActivity {
 
     public void onBtnPlayAgain_Clicked(View caller) {
         resultsDialog.cancel();
-        resetGame();
+        resetGame(false);
     }
 
     public void onBtnYes_Clicked(View caller) {
         confirmationDialog.cancel();
-        startActivity(nextIntent);
+        difficulty = nextDifficulty;
+        changeBoard(difficulty);
     }
 
     public void onBtnNo_Clicked(View caller) {
         confirmationDialog.cancel();
+
     }
+
 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch ((item.getItemId())) {
-            case (R.id.fourSquare) -> {
-                if (difficulty != 4) {
-                    nextIntent = new Intent(this, ActivityDiffFour.class);
-                    if(row > 0){
-                        confirmationDialog.show();
-                    } else {
-                        startActivity(nextIntent);
-                    }
+        int clickedDifficulty = Integer.parseInt(item.getTitle().toString());
+
+        if (Arrays.asList(4, 5, 6).contains(clickedDifficulty)) {
+            if (difficulty != clickedDifficulty) {
+                if (row > 0) {
+                    confirmationDialog.show();
+                    nextDifficulty = clickedDifficulty;
                 } else {
-                    sendToastMessage("Difficulty is already 4");
+                    changeBoard(clickedDifficulty);
                 }
-                return true;
+            } else {
+                sendToastMessage("Difficulty is already " + clickedDifficulty);
+                System.out.println(difficulty + " == " + clickedDifficulty);
             }
-            case (R.id.fiveSquare) -> {
-                if (difficulty != 5) {
-                    nextIntent = new Intent(this, MainActivityDiffFive.class);
-                    if(row > 0){
-                        confirmationDialog.show();
-                    } else {
-                        startActivity(nextIntent);
-                    }
-                } else {
-                    sendToastMessage("Difficulty is already 5");
+            return true;
+
+        } else {
+
+            switch ((item.getItemId())) {
+
+                case (R.id.colourOptionVintage) -> {
+                    setColourOption(2);
+                    return true;
                 }
-                return true;
-            }
-            case (R.id.sixSquare) -> {
-                if (difficulty != 6) {
-                    nextIntent = new Intent(this, ActivityDiffSix.class);
-                    if(row > 0){
-                        confirmationDialog.show();
-                    } else {
-                        startActivity(nextIntent);
-                    }
-                } else {
-                    sendToastMessage("Difficulty is already 6");
+                case (R.id.colourOptionDark) -> {
+                    setColourOption(1);
+                    return true;
                 }
-                return true;
-            }
-            case (R.id.colourOptionVintage) -> {
-                setColourOption(2);
-                return true;
-            }
-            case (R.id.colourOptionDark) -> {
-                setColourOption(1);
-                return true;
-            }
-            case (R.id.colourOptionOriginal) -> {
-                setColourOption(0);
-                return true;
+                case (R.id.colourOptionOriginal) -> {
+                    setColourOption(0);
+                    return true;
+                }
             }
         }
         return super.onOptionsItemSelected(item);
@@ -234,32 +217,32 @@ public class MainActivityDiffFive extends AppCompatActivity {
          ########################################
      */
 
-    private void resetGame() {
-        for (int row = 0; row < 6; row++) {
-            for (int column = 0; column < difficulty; column++) {
-                resetColorBoard(column, row);
-
-            }
+    private void resetGame(boolean changedDifficulty) {
+        if(!changedDifficulty) {
+            resetColorBoard();
         }
-
-        for (char c = 'a'; c <= 'z'; c++) {
-            resetColorKeyBoard(c);
-
-        }
+        resetColorKeyBoard();
         row = 0;
         column = 0;
+        guessWord = "";
     }
 
-    public void resetColorBoard(int x, int y) {
-        setBackground(getTile(x, y), R.drawable.lightgray_border);
-        getTile(x, y).setText("");
-        getTile(x, y).setTextColor(Color.BLACK);
+    public void resetColorBoard() {
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < difficulty; column++) {
+                setBackground(getTile(column, row), R.drawable.lightgray_border);
+                getTile(column, row).setText("");
+                getTile(column, row).setTextColor(Color.BLACK);
+            }
+        }
     }
 
-    public void resetColorKeyBoard(char c) {
-        getKeyButton(c).setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.light_gray, null));
-        getKeyButton(c).setTextColor(Color.BLACK);
-        getTextKeyButton(c).setTextColor(Color.BLACK);
+    public void resetColorKeyBoard() {
+        for (char c = 'a'; c <= 'z'; c++) {
+            getKeyButton(c).setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.light_gray, null));
+            getKeyButton(c).setTextColor(Color.BLACK);
+            getTextKeyButton(c).setTextColor(Color.BLACK);
+        }
     }
 
 
@@ -279,7 +262,7 @@ public class MainActivityDiffFive extends AppCompatActivity {
         //vintage = 2, dark = 1, original = 0
     }
 
-    public void setupGame(int diff) {
+    public void setupNewGame(int diff) {
         switch (diff) {
             case 4 -> {
                 word = "kaka";
@@ -326,15 +309,27 @@ public class MainActivityDiffFive extends AppCompatActivity {
         for (int i = 0; i < difficulty; i++) {
             Animation animation = null;
             switch (type) {
-                case "error" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.lefttoright);
-                case "won" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.bounce);
-                case "revealletter" -> animation = AnimationUtils.loadAnimation(MainActivityDiffFive.this, R.anim.revealletter);
+                case "error" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.lefttoright);
+                case "won" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+                case "revealletter" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.revealletter);
             }
             getTile(i, row).startAnimation(animation);
 
 
 
         }
+    }
+
+    public void changeBoard(int difficulty){
+        int layoutID = getResources().getIdentifier("board_" + difficulty, "layout", this.getPackageName());
+        ConstraintLayout mainLayout = findViewById(R.id.includeBoard);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(layoutID, null);
+        mainLayout.removeAllViews();
+        mainLayout.addView(layout);
+
+        setupNewGame(difficulty);
+        resetGame(true);
     }
 
 
