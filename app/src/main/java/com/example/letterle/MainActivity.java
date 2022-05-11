@@ -1,7 +1,9 @@
 package com.example.letterle;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,8 +20,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
     private ConfirmationDialog confirmationDialog;
     public int difficulty;
     private int nextDifficulty;
-
+    public Context context;
+    private RequestQueue requestQueue;
 
     /*
         #############
@@ -300,10 +340,62 @@ public class MainActivity extends AppCompatActivity {
 
     /*
          ########################################
-         #               Other                  #
+         #               Database               #
          ########################################
      */
 
+
+    public void checkWordInList(String word)
+    {
+        requestQueue = Volley.newRequestQueue(context);
+        String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
+
+        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        try {
+                            JSONArray responseArray = new JSONArray(response);
+                            String responseString = "";
+                            for( int i = 0; i < responseArray.length(); i++ )
+                            {
+                                JSONObject curObject = responseArray.getJSONObject( i );
+                                responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
+                                System.out.println(responseString);
+                            }
+
+                        }
+                        catch( JSONException e )
+                        {
+                            Log.e( "Database", e.getMessage(), e );
+                        }
+                    }
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        ;
+                    }
+                }
+        );
+
+        requestQueue.add(submitRequest);
+
+
+
+    }
+
+    /*
+         ########################################
+         #               Other                  #
+         ########################################
+     */
 
     public void showAnimation(String type, int row) {
         for (int i = 0; i < difficulty; i++) {

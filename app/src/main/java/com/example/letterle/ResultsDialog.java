@@ -82,49 +82,6 @@ public class ResultsDialog extends Dialog{
         TextView win = findViewById(R.id.textViewWin_nr);
         TextView played = findViewById(R.id.textViewPlayed_nr);
 
-
-        requestQueue = Volley.newRequestQueue(this.getContext());
-        String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
-
-        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
-
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        try {
-                            JSONArray responseArray = new JSONArray(response);
-                            String responseString = "";
-                            for( int i = 0; i < responseArray.length(); i++ )
-                            {
-                                JSONObject curObject = responseArray.getJSONObject( i );
-                                responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
-                                System.out.println(responseString);
-                            }
-
-                        }
-                        catch( JSONException e )
-                        {
-                            Log.e( "Database", e.getMessage(), e );
-                        }
-                    }
-                },
-
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        ;
-                    }
-                }
-        );
-
-        requestQueue.add(submitRequest);
-
-
-
         maxStreak.setText("10");
         currentStreak.setText("2");
         win.setText("4");
