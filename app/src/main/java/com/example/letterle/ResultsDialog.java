@@ -93,7 +93,8 @@ public class ResultsDialog extends Dialog{
 
         for(int i = 1; i < 7; i++){
             float fill = (float) list.get(i-1)/ (float) Collections.max(list);
-            getProgressBar(i).getLayoutParams().width = Math.round(500 * fill);
+            getProgressBar(i).setProgress(Math.round(100 * fill));
+
         }
 
     }

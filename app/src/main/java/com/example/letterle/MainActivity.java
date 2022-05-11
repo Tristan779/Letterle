@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +58,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
     //------------------------------------------------------------------
     private String word = "";
     public String guessWord = "";
-    private List<String> possibleWords;
+    private List<String> possibleWords4 = new ArrayList<>();
+    private List<String> possibleWords5 = new ArrayList<>();
+    private List<String> possibleWords6 = new ArrayList<>();
     //------------------------------------------------------------------
 
     public int column;
@@ -74,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
     private ConfirmationDialog confirmationDialog;
     public int difficulty;
     private int nextDifficulty;
-    public Context context;
     private RequestQueue requestQueue;
+    public int a;
 
     /*
         #############
@@ -98,6 +101,16 @@ public class MainActivity extends AppCompatActivity {
         return findViewById(id);
     }
 
+    public List<String> getRightPossibleWords()
+    {
+        if(difficulty == 4)
+            return possibleWords4;
+        if(difficulty == 5)
+            return possibleWords5;
+        if(difficulty == 6)
+            return possibleWords6;
+        return null;
+    }
 
     public int getColorKey(int index) {
         int color;
@@ -125,7 +138,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
         confirmationDialog = new ConfirmationDialog(this);
-        setupNewGame(5);
+        a = 0;
+        addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
+
+        addPossibleWords("https://studev.groept.be/api/a21pt203/getSixList","SixLetter", possibleWords6);
+        addPossibleWords("https://studev.groept.be/api/a21pt203/getFourList","FourLetter", possibleWords4);
+
     }
 
     @Override
@@ -167,13 +185,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnEnter_Clicked(View caller) {
         if (guessWord.length() == difficulty) {
-
             if (guessWord.equals(word)) {
                 wordGuessed();
                 showAnimation("won", row);
 
             }
-            if (possibleWords.contains(guessWord)) {
+            if (getRightPossibleWords().contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
                     setColorKey(index, getColorKey(index));
                     setColorTile(index);
@@ -195,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnPlayAgain_Clicked(View caller) {
         resultsDialog.cancel();
         resetGame(false);
+        setupNewGame(difficulty);
     }
 
     public void onBtnYes_Clicked(View caller) {
@@ -212,9 +230,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int clickedDifficulty = Integer.parseInt(item.getTitle().toString());
-
-        if (Arrays.asList(4, 5, 6).contains(clickedDifficulty)) {
+        if (Arrays.asList("4", "5", "6").contains(item.getTitle())) {
+            int clickedDifficulty = Integer.parseInt(item.getTitle().toString());
             if (difficulty != clickedDifficulty) {
                 if (row > 0) {
                     confirmationDialog.show();
@@ -305,22 +322,32 @@ public class MainActivity extends AppCompatActivity {
     public void setupNewGame(int diff) {
         switch (diff) {
             case 4 -> {
-                word = "kaka";
-                possibleWords = Arrays.asList("tril", "kunt", "ramp", "pomp", "kort", "kaka");
+                word = "prut";
+                //possibleWords = Arrays.asList("tril", "kunt", "ramp", "pomp", "kort", "kaka");
                 difficulty = 4;
             }
 
             case 5 -> {
-                word = "appel";
-                possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl", "aaaaa");
+                word = "pruts";
+                //possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl", "aaaaa");
                 difficulty = 5;
+                //possibleWords.forEach(System.out::println);
+                //System.out.println("hallo");
+                Random rn = new Random();
+                //int n = possibleWords5.size();
+                //System.out.println(n);
+                int num = rn.nextInt(possibleWords5.size());
+                word = possibleWords5.get(num);
+                System.out.println(word);
             }
             case 6 -> {
-                word = "zwavel";
-                possibleWords = Arrays.asList("ronder", "zwiert", "wolken", "imkers", "zwavel");
+                word = "lachen";
+                //possibleWords = Arrays.asList("ronder", "zwiert", "wolken", "imkers", "zwavel");
                 difficulty = 6;
             }
+
         }
+
     }
 
     public void setBackground(TextView view, int drawable) {
@@ -344,51 +371,50 @@ public class MainActivity extends AppCompatActivity {
          ########################################
      */
 
-
-    public void checkWordInList(String word)
+    public void addPossibleWords(String link, String kolom, List<String> possWor)
     {
-        requestQueue = Volley.newRequestQueue(context);
-        String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = link;
 
         StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
 
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        try {
-                            JSONArray responseArray = new JSONArray(response);
-                            String responseString = "";
-                            for( int i = 0; i < responseArray.length(); i++ )
-                            {
-                                JSONObject curObject = responseArray.getJSONObject( i );
-                                responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
-                                System.out.println(responseString);
-                            }
+                response -> {
+                    try {
+                        JSONArray responseArray = new JSONArray(response);
+                        String responseString = "";
+                        for( int i = 0; i < responseArray.length(); i++ )
+                        {
+                            JSONObject curObject = responseArray.getJSONObject( i );
+                            responseString = curObject.getString( kolom );
+                            possWor.add(responseString);
 
                         }
-                        catch( JSONException e )
-                        {
-                            Log.e( "Database", e.getMessage(), e );
+                        a++;
+                        if(a==3) {
+                            setupNewGame(5);
                         }
+                    }
+                    catch( JSONException e )
+                    {
+                        Log.e( "Database", e.getMessage(), e );
                     }
                 },
 
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        ;
-                    }
+                error -> {
+                    ;
                 }
         );
 
         requestQueue.add(submitRequest);
 
+    }
 
 
+
+
+
+    private MainActivity getContext() {
+        return this;
     }
 
     /*
