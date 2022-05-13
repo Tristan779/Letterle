@@ -550,7 +550,7 @@
                     android:backgroundTint="@color/light_gray"
                     android:contentDescription="@string/g"
                     android:onClick="onBtnKey_Clicked"
-                    android:text="@string/f" />
+                    android:text="@string/g" />
 
                 <TextView
                     android:id="@+id/textViewButton_G"
