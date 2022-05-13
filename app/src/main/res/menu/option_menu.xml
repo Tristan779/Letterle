@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/mainOptionMenu"
-        android:title="STATS"
+        android:id="@+id/statMenu"
+        android:title="stats"
         android:icon="@drawable/ic_baseline_leaderboard_24"
         app:showAsAction="always" />
 

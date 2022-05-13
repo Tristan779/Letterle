@@ -6,32 +6,17 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -39,17 +24,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-
 
 public class ResultsDialog extends Dialog{
 
     public Context context;
     private RequestQueue requestQueue;
+    String name;
+    int id = 2;
+    int Wins1try;
+    int Wins2try;
+    int Wins3try;
+    int Wins4try;
+    int Wins5try;
+    int Wins6try;
+    int CurrentStreak;
+    int MaxStreak;
+    int GamesPlayed;
 
     public ResultsDialog(Context context) {
         super(context);
@@ -62,7 +52,7 @@ public class ResultsDialog extends Dialog{
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCanceledOnTouchOutside(false);
         setCancelable(true);
-        setContentView(R.layout.results);
+        setContentView(R.layout.game_end_results);
         updateDialog();
     }
 
@@ -75,29 +65,79 @@ public class ResultsDialog extends Dialog{
 
 
 
-    public void updateDialog() {
-
+    public void updateDialog()
+    {
         TextView maxStreak = findViewById(R.id.textViewMaxStreak_nr);
         TextView currentStreak = findViewById(R.id.textViewCurrentStreak_nr);
         TextView win = findViewById(R.id.textViewWin_nr);
         TextView played = findViewById(R.id.textViewPlayed_nr);
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
 
-        maxStreak.setText("10");
-        currentStreak.setText("2");
-        win.setText("4");
-        played.setText("30");
+        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
 
-        //test lijst
-        List<Integer> list = new ArrayList<>(
-                Arrays.asList(1, 3, 5, 9, 4, 8));
+                response -> {
+                    try {
+                        JSONArray responseArray = new JSONArray(response);
+                        for( int i = 0; i < responseArray.length(); i++ )
+                        {
+                            JSONObject curObject = responseArray.getJSONObject( i );
+                            int ThisID = curObject.getInt("id"); //primary key
+                            if(id == ThisID)
+                            {
+                                Wins1try = curObject.getInt("Wins1try");
+                                Wins2try = curObject.getInt("Wins2try");
+                                Wins3try = curObject.getInt("Wins3try");
+                                Wins4try = curObject.getInt("Wins4try");
+                                Wins5try = curObject.getInt("Wins5try");
+                                Wins6try = curObject.getInt("Wins6try");
+                                CurrentStreak = curObject.getInt("CurrStreak");
+                                MaxStreak = curObject.getInt("MaxStreak");
+                                GamesPlayed = curObject.getInt("Played");
+                                System.out.println("-----------------------------------");
+                                System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
+                            }
+                        }
+                        maxStreak.setText(String.valueOf(MaxStreak));
+                        currentStreak.setText(String.valueOf(CurrentStreak));
+                        float wins = Wins1try+Wins2try+Wins3try+Wins4try+Wins5try+Wins6try;
+                        if(GamesPlayed==0)
+                        {
+                            win.setText(String.valueOf(0));
+                        }
+                        else{
+                            float winPercent = wins/GamesPlayed*100;
+                            win.setText(String.valueOf((int)winPercent));
+                        }
+                        played.setText(String.valueOf(GamesPlayed));
 
-        for(int i = 1; i < 7; i++){
-            float fill = (float) list.get(i-1)/ (float) Collections.max(list);
-            getProgressBar(i).setProgress(Math.round(100 * fill));
+                        //test lijst
+                        List<Integer> list = new ArrayList<>(
+                                Arrays.asList(Wins1try, Wins2try, Wins3try, Wins4try, Wins5try, Wins6try));
 
-        }
+                        for(int i = 1; i < 7; i++){
+                            float fill = (float) list.get(i-1)/ (float) Collections.max(list);
+                            getProgressBar(i).setProgress(Math.round(100 * fill));
 
+                        }
+
+
+                    }
+                    catch( JSONException e )
+                    {
+                        Log.e( "Database", e.getMessage(), e );
+                    }
+                },
+
+                error -> {
+                    ;
+                }
+        );
+
+        requestQueue.add(submitRequest);
     }
+
+
 
 }
 

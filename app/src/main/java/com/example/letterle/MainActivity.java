@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         confirmationDialog = new ConfirmationDialog(this);
         a = 0;
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
-
         addPossibleWords("https://studev.groept.be/api/a21pt203/getSixList","SixLetter", possibleWords6);
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFourList","FourLetter", possibleWords4);
 
@@ -261,6 +260,11 @@ public class MainActivity extends AppCompatActivity {
                     setColourOption(0);
                     return true;
                 }
+                case (R.id.statMenu) -> {
+                    sendToastMessage("check");
+                    resultsDialog.show();
+                    resultsDialog.updateDialog();
+                }
             }
         }
         return super.onOptionsItemSelected(item);
@@ -320,30 +324,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupNewGame(int diff) {
+        Random rn = new Random();
         switch (diff) {
             case 4 -> {
-                word = "prut";
-                //possibleWords = Arrays.asList("tril", "kunt", "ramp", "pomp", "kort", "kaka");
                 difficulty = 4;
+                int num = rn.nextInt(possibleWords4.size());
+                word = possibleWords4.get(num);
+                System.out.println(word);
             }
 
             case 5 -> {
-                word = "pruts";
-                //possibleWords = Arrays.asList("anker", "kwaad", "speld", "steel", "loper", "plaat", "appel", "lappl", "aaaaa");
                 difficulty = 5;
-                //possibleWords.forEach(System.out::println);
-                //System.out.println("hallo");
-                Random rn = new Random();
-                //int n = possibleWords5.size();
-                //System.out.println(n);
                 int num = rn.nextInt(possibleWords5.size());
                 word = possibleWords5.get(num);
                 System.out.println(word);
             }
             case 6 -> {
-                word = "lachen";
-                //possibleWords = Arrays.asList("ronder", "zwiert", "wolken", "imkers", "zwavel");
                 difficulty = 6;
+                int num = rn.nextInt(possibleWords6.size());
+                word = possibleWords6.get(num);
+                System.out.println(word);
             }
 
         }
@@ -367,11 +367,11 @@ public class MainActivity extends AppCompatActivity {
 
     /*
          ########################################
-         #               Database               #
+         #              Database                #
          ########################################
      */
 
-    public void addPossibleWords(String link, String kolom, List<String> possWor)
+    public void addPossibleWords(String link, String kolom, List<String> ThisPossibleWords)
     {
         requestQueue = Volley.newRequestQueue(getContext());
         String requestURL = link;
@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             JSONObject curObject = responseArray.getJSONObject( i );
                             responseString = curObject.getString( kolom );
-                            possWor.add(responseString);
+                            ThisPossibleWords.add(responseString);
 
                         }
                         a++;
@@ -410,9 +410,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private MainActivity getContext() {
         return this;
     }
@@ -432,9 +429,6 @@ public class MainActivity extends AppCompatActivity {
                 case "revealletter" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.revealletter);
             }
             getTile(i, row).startAnimation(animation);
-
-
-
         }
     }
 
