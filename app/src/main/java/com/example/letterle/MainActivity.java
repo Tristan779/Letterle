@@ -1,6 +1,5 @@
 package com.example.letterle;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +20,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,30 +31,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Random;
 
 
@@ -79,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private int nextDifficulty;
     private RequestQueue requestQueue;
     public int a;
+    public int tries;
 
     /*
         #############
@@ -137,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
+        resultsDialog.show();
+        resultsDialog.readNewDialogData();
         confirmationDialog = new ConfirmationDialog(this);
         a = 0;
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
@@ -184,10 +162,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnEnter_Clicked(View caller) {
         if (guessWord.length() == difficulty) {
+            tries++;
             if (guessWord.equals(word)) {
+
+                resultsDialog.updateDialog(true, tries);
                 wordGuessed();
                 showAnimation("won", row);
-
             }
             if (getRightPossibleWords().contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
@@ -263,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 case (R.id.statMenu) -> {
                     sendToastMessage("check");
                     resultsDialog.show();
-                    resultsDialog.updateDialog();
+                    resultsDialog.readNewDialogData();
                 }
             }
         }
@@ -453,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
         sendToastMessage("Great");
         showAnimation("won", row);
         resultsDialog.show();
-        resultsDialog.updateDialog();
+        resultsDialog.readNewDialogData();
     }
 
 

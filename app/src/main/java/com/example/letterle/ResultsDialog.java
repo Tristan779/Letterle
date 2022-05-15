@@ -53,7 +53,7 @@ public class ResultsDialog extends Dialog{
         setCanceledOnTouchOutside(false);
         setCancelable(true);
         setContentView(R.layout.game_end_results);
-        updateDialog();
+        readNewDialogData();
     }
 
 
@@ -65,7 +65,7 @@ public class ResultsDialog extends Dialog{
 
 
 
-    public void updateDialog()
+    public void readNewDialogData()
     {
         TextView maxStreak = findViewById(R.id.textViewMaxStreak_nr);
         TextView currentStreak = findViewById(R.id.textViewCurrentStreak_nr);
@@ -129,6 +129,55 @@ public class ResultsDialog extends Dialog{
                     }
                 },
 
+                error -> {
+                    ;
+                }
+        );
+
+        requestQueue.add(submitRequest);
+    }
+
+    public void updateDialog(boolean won, int tries)
+    {
+        GamesPlayed++;
+        if(won)
+        {
+            CurrentStreak++;
+            if (CurrentStreak>MaxStreak)
+            {
+                MaxStreak++;
+            }
+            if(tries ==1)
+                Wins1try++;//op een propere manier dit prgrammeren voor alle tries!!
+
+        }
+        if(!won)
+        {
+            CurrentStreak=0;
+        }
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/"+Wins1try+"/"
+                +Wins2try+"/"+Wins3try+"/"+Wins4try+"/"+Wins5try+"/"+Wins6try+"/"+CurrentStreak+"/"+MaxStreak+"/"+GamesPlayed
+                +"/"+id;
+        //String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/1/2/3/4/5/6/3/3/3/3";
+
+        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+
+                response -> {
+                    try {
+                        JSONArray responseArray = new JSONArray(response);
+                        for( int i = 0; i < responseArray.length(); i++ )
+                        {
+                            JSONObject curObject = responseArray.getJSONObject( i );
+                            int ThisID = curObject.getInt("id"); //primary key
+
+                        }
+                    }
+                    catch( JSONException e )
+                    {
+                        Log.e( "Database", e.getMessage(), e );
+                    }
+                },
                 error -> {
                     ;
                 }
