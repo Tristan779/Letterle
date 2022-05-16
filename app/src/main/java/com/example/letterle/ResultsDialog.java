@@ -94,13 +94,15 @@ public class ResultsDialog extends Dialog{
                                 CurrentStreak = curObject.getInt("CurrStreak");
                                 MaxStreak = curObject.getInt("MaxStreak");
                                 GamesPlayed = curObject.getInt("Played");
-                                System.out.println("-----------------------------------");
-                                System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
+                                //System.out.println("-----------------------------------");
+                                //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
                             }
                         }
                         maxStreak.setText(String.valueOf(MaxStreak));
                         currentStreak.setText(String.valueOf(CurrentStreak));
                         float wins = Wins1try+Wins2try+Wins3try+Wins4try+Wins5try+Wins6try;
+                        System.out.println(Wins1try+" "+Wins2try+" "+Wins3try+" "+Wins4try+" "+Wins5try+" " + Wins6try);
+                        System.out.println(wins);
                         if(GamesPlayed==0)
                         {
                             win.setText(String.valueOf(0));
@@ -149,6 +151,16 @@ public class ResultsDialog extends Dialog{
             }
             if(tries ==1)
                 Wins1try++;//op een propere manier dit prgrammeren voor alle tries!!
+            if(tries ==2)
+                Wins2try++;
+            if(tries ==3)
+                Wins3try++;
+            if(tries ==4)
+                Wins4try++;
+            if(tries ==5)
+                Wins5try++;
+            if(tries ==6)
+                Wins6try++;
 
         }
         if(!won)

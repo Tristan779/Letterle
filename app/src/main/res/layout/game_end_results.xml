@@ -247,7 +247,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:onClick="onBtnPlayAgain_Clicked"
-        android:text="PLAY AGAIN"
+        android:text="PLAY "
         app:backgroundTint="#6aaa64"
         app:layout_constraintEnd_toStartOf="@+id/buttonYes"
         app:layout_constraintStart_toStartOf="parent"

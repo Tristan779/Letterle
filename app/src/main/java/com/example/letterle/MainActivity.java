@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     public int a;
     public int tries;
+    public int statState = 1;
 
     /*
         #############
@@ -163,11 +164,18 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnEnter_Clicked(View caller) {
         if (guessWord.length() == difficulty) {
             tries++;
+            System.out.println(tries);
             if (guessWord.equals(word)) {
-
                 resultsDialog.updateDialog(true, tries);
                 wordGuessed();
                 showAnimation("won", row);
+            }
+            if(tries == 6)
+            {
+                resultsDialog.updateDialog(false, 0);
+                sendToastMessage("No more tries, you lost :(");
+                resultsDialog.show();
+                resultsDialog.readNewDialogData();
             }
             if (getRightPossibleWords().contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
@@ -190,12 +198,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnPlayAgain_Clicked(View caller) {
         resultsDialog.cancel();
-        resetGame(false);
-        setupNewGame(difficulty);
+        if (statState == 0){
+            resetGame(false);
+            setupNewGame(difficulty);
+        }
+
     }
 
     public void onBtnYes_Clicked(View caller) {
         confirmationDialog.cancel();
+        resultsDialog.updateDialog(false, 0);
         difficulty = nextDifficulty;
         changeBoard(difficulty);
     }
@@ -241,9 +253,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case (R.id.statMenu) -> {
-                    sendToastMessage("check");
+                    //sendToastMessage("check");
                     resultsDialog.show();
                     resultsDialog.readNewDialogData();
+                    statState = 1; //is 1 voor op menu te klikken, is 0 voor gewoon einde spel
                 }
             }
         }
@@ -266,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
         row = 0;
         column = 0;
         guessWord = "";
+        tries = 0;
     }
 
     public void resetColorBoard() {
@@ -432,6 +446,7 @@ public class MainActivity extends AppCompatActivity {
     public void wordGuessed() {
         sendToastMessage("Great");
         showAnimation("won", row);
+        statState = 0;
         resultsDialog.show();
         resultsDialog.readNewDialogData();
     }
