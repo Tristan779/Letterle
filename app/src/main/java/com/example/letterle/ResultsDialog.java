@@ -67,10 +67,7 @@ public class ResultsDialog extends Dialog{
 
     public void readNewDialogData()
     {
-        TextView maxStreak = findViewById(R.id.textViewMaxStreak_nr);
-        TextView currentStreak = findViewById(R.id.textViewCurrentStreak_nr);
-        TextView win = findViewById(R.id.textViewWin_nr);
-        TextView played = findViewById(R.id.textViewPlayed_nr);
+
         requestQueue = Volley.newRequestQueue(getContext());
         String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
 
@@ -98,30 +95,7 @@ public class ResultsDialog extends Dialog{
                                 //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
                             }
                         }
-                        maxStreak.setText(String.valueOf(MaxStreak));
-                        currentStreak.setText(String.valueOf(CurrentStreak));
-                        float wins = Wins1try+Wins2try+Wins3try+Wins4try+Wins5try+Wins6try;
-                        System.out.println(Wins1try+" "+Wins2try+" "+Wins3try+" "+Wins4try+" "+Wins5try+" " + Wins6try);
-                        System.out.println(wins);
-                        if(GamesPlayed==0)
-                        {
-                            win.setText(String.valueOf(0));
-                        }
-                        else{
-                            float winPercent = wins/GamesPlayed*100;
-                            win.setText(String.valueOf((int)winPercent));
-                        }
-                        played.setText(String.valueOf(GamesPlayed));
 
-                        //test lijst
-                        List<Integer> list = new ArrayList<>(
-                                Arrays.asList(Wins1try, Wins2try, Wins3try, Wins4try, Wins5try, Wins6try));
-
-                        for(int i = 1; i < 7; i++){
-                            float fill = (float) list.get(i-1)/ (float) Collections.max(list);
-                            getProgressBar(i).setProgress(Math.round(100 * fill));
-
-                        }
 
 
                     }
@@ -137,6 +111,37 @@ public class ResultsDialog extends Dialog{
         );
 
         requestQueue.add(submitRequest);
+    }
+
+    public void setStatTiles() {
+        TextView maxStreak = findViewById(R.id.textViewMaxStreak_nr);
+        TextView currentStreak = findViewById(R.id.textViewCurrentStreak_nr);
+        TextView win = findViewById(R.id.textViewWin_nr);
+        TextView played = findViewById(R.id.textViewPlayed_nr);
+        maxStreak.setText(String.valueOf(MaxStreak));
+        currentStreak.setText(String.valueOf(CurrentStreak));
+        float wins = Wins1try+Wins2try+Wins3try+Wins4try+Wins5try+Wins6try;
+        //System.out.println(Wins1try+" "+Wins2try+" "+Wins3try+" "+Wins4try+" "+Wins5try+" " + Wins6try);
+        System.out.println("Wins: "+wins);
+        if(GamesPlayed==0)
+        {
+            win.setText(String.valueOf(0));
+        }
+        else{
+            float winPercent = wins/GamesPlayed*100;
+            win.setText(String.valueOf((int)winPercent));
+        }
+        played.setText(String.valueOf(GamesPlayed));
+
+        //test lijst
+        List<Integer> list = new ArrayList<>(
+                Arrays.asList(Wins1try, Wins2try, Wins3try, Wins4try, Wins5try, Wins6try));
+
+        for(int i = 1; i < 7; i++){
+            float fill = (float) list.get(i-1)/ (float) Collections.max(list);
+            getProgressBar(i).setProgress(Math.round(100 * fill));
+
+        }
     }
 
     public void updateDialog(boolean won, int tries)

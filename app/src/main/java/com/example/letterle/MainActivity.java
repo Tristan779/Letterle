@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
-        resultsDialog.show();
         resultsDialog.readNewDialogData();
         confirmationDialog = new ConfirmationDialog(this);
         a = 0;
@@ -174,8 +173,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 resultsDialog.updateDialog(false, 0);
                 sendToastMessage("No more tries, you lost :(");
-                resultsDialog.show();
                 resultsDialog.readNewDialogData();
+                resultsDialog.show();
+                resultsDialog.setStatTiles();
+
             }
             if (getRightPossibleWords().contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
@@ -254,8 +255,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.statMenu) -> {
                     //sendToastMessage("check");
-                    resultsDialog.show();
                     resultsDialog.readNewDialogData();
+                    resultsDialog.show();
+                    resultsDialog.setStatTiles();
                     statState = 1; //is 1 voor op menu te klikken, is 0 voor gewoon einde spel
                 }
             }
@@ -447,8 +449,10 @@ public class MainActivity extends AppCompatActivity {
         sendToastMessage("Great");
         showAnimation("won", row);
         statState = 0;
-        resultsDialog.show();
         resultsDialog.readNewDialogData();
+        resultsDialog.show();
+        resultsDialog.setStatTiles();
+
     }
 
 
