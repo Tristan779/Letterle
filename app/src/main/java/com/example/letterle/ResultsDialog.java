@@ -40,6 +40,9 @@ public class ResultsDialog extends Dialog{
     int CurrentStreak;
     int MaxStreak;
     int GamesPlayed;
+    ArrayList<String> Names = new ArrayList<String>();
+    ArrayList<Integer> Ids = new ArrayList<Integer>();
+
 
     public ResultsDialog(Context context) {
         super(context);
@@ -183,12 +186,7 @@ public class ResultsDialog extends Dialog{
                 response -> {
                     try {
                         JSONArray responseArray = new JSONArray(response);
-                        for( int i = 0; i < responseArray.length(); i++ )
-                        {
-                            JSONObject curObject = responseArray.getJSONObject( i );
-                            int ThisID = curObject.getInt("id"); //primary key
 
-                        }
                     }
                     catch( JSONException e )
                     {
@@ -204,6 +202,64 @@ public class ResultsDialog extends Dialog{
     }
 
 
+    public void makeNewAccount(String Nm)
+    {
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = "https://studev.groept.be/api/a21pt203/makeNewUser/"+Nm;
+        //String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/1/2/3/4/5/6/3/3/3/3";
+
+        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+
+                response -> {
+                    try {
+                        JSONArray responseArray = new JSONArray(response);
+
+                    }
+                    catch( JSONException e )
+                    {
+                        Log.e( "Database", e.getMessage(), e );
+                    }
+                },
+                error -> {
+                    ;
+                }
+        );
+
+        requestQueue.add(submitRequest);
+    }
+
+    public void getNameAndId(String Nm)
+    {
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = "https://studev.groept.be/api/a21pt203/getNameAndIds";
+
+        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+
+                response -> {
+                    try {
+                        JSONArray responseArray = new JSONArray(response);
+                        for( int i = 0; i < responseArray.length(); i++ )
+                        {
+                            JSONObject curObject = responseArray.getJSONObject( i );
+                            Names.add(curObject.getString("name"));
+                            Ids.add(curObject.getInt("id")); //primary key
+
+                        }
+                    }
+                    catch( JSONException e )
+                    {
+                        Log.e( "Database", e.getMessage(), e );
+                    }
+                },
+                error -> {
+                    ;
+                }
+        );
+
+        requestQueue.add(submitRequest);
+    }
 
 }
 

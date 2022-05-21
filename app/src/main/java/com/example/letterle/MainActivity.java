@@ -162,14 +162,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnEnter_Clicked(View caller) {
         if (guessWord.length() == difficulty) {
-            tries++;
-            System.out.println(tries);
             if (guessWord.equals(word)) {
+                tries++;
                 resultsDialog.updateDialog(true, tries);
                 wordGuessed();
                 showAnimation("won", row);
             }
-            if(tries == 6)
+            if(tries == 5)
             {
                 resultsDialog.updateDialog(false, 0);
                 sendToastMessage("No more tries, you lost :(");
@@ -187,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 row++;
                 column = 0;
                 guessWord = "";
+                tries++;
             } else {
                 sendToastMessage("Not in word list");
                 showAnimation("error", row);
