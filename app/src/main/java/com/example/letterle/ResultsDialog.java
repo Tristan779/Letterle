@@ -2,6 +2,7 @@ package com.example.letterle;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,13 +11,9 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -24,12 +21,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 
 public class ResultsDialog extends Dialog{
 
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
     public Context context;
     private RequestQueue requestQueue;
-    int id = 1;
     int wins1Try;
     int wins2Try;
     int wins3Try;
@@ -42,9 +46,11 @@ public class ResultsDialog extends Dialog{
 
 
 
+
     public ResultsDialog(Context context) {
         super(context);
         this.context = context;
+        uniqueID(context);
     }
 
     @Override
@@ -53,17 +59,23 @@ public class ResultsDialog extends Dialog{
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCanceledOnTouchOutside(false);
         setCancelable(true);
-        setContentView(R.layout.game_end_results);
+        //setContentView(R.layout.game_end_results);
         readNewDialogData();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId()
-    {
-        return id;
+    public synchronized static String uniqueID(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.commit();
+            }
+        }
+        return uniqueID;
     }
 
     public ProgressBar getProgressBar(int index) {
@@ -74,19 +86,15 @@ public class ResultsDialog extends Dialog{
 
     public void readNewDialogData() {
         requestQueue = Volley.newRequestQueue(getContext());
-        String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
+        String requestURL = "https://studev.groept.be/api/a21pt203/getStatsUser/" + uniqueID;
 
-        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
 
                 response -> {
                     try {
-                        JSONArray responseArray = new JSONArray(response);
-                        for( int i = 0; i < responseArray.length(); i++ )
-                        {
-                            JSONObject curObject = responseArray.getJSONObject( i );
-                            int userID = curObject.getInt("id"); //primary key
-                            if(id == userID)
-                            {
+                        if(!response.isNull(0)){
+                            for( int i = 0; i < response.length(); i++ ) {
+                                JSONObject curObject = response.getJSONObject(i);
                                 wins1Try = curObject.getInt("Wins1try");
                                 wins2Try = curObject.getInt("Wins2try");
                                 wins3Try = curObject.getInt("Wins3try");
@@ -96,9 +104,10 @@ public class ResultsDialog extends Dialog{
                                 currentStreak = curObject.getInt("CurrStreak");
                                 maxStreak = curObject.getInt("MaxStreak");
                                 gamesPlayed = curObject.getInt("Played");
-                                //System.out.println("-----------------------------------");
-                                //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+userID);
                             }
+                        }
+                        else{
+                            makeNewAccount();
                         }
                     }
                     catch( JSONException e )
@@ -121,10 +130,24 @@ public class ResultsDialog extends Dialog{
         TextView win = findViewById(R.id.textViewWin_nr);
         TextView played = findViewById(R.id.textViewPlayed_nr);
 
+        TextView winOne = findViewById(R.id.textViewWins_1);
+        TextView winTwo = findViewById(R.id.textViewWins_2);
+        TextView winTree = findViewById(R.id.textViewWins_3);
+        TextView winFour = findViewById(R.id.textViewWins_4);
+        TextView winFive = findViewById(R.id.textViewWins_5);
+        TextView winSix = findViewById(R.id.textViewWins_6);
+
         maxStreak.setText(String.valueOf(this.maxStreak));
         currentStreak.setText(String.valueOf(this.currentStreak));
+
+        winOne.setText(String.valueOf(this.wins1Try));
+        winTwo.setText(String.valueOf(this.wins2Try));
+        winTree.setText(String.valueOf(this.wins3Try));
+        winFour.setText(String.valueOf(this.wins4Try));
+        winFive.setText(String.valueOf(this.wins5Try));
+        winSix.setText(String.valueOf(this.wins6Try));
+
         float wins = wins1Try + wins2Try + wins3Try + wins4Try + wins5Try + wins6Try;
-        System.out.println("Wins: "+wins);
         if(gamesPlayed == 0)
         {
             win.setText("0");
@@ -173,10 +196,32 @@ public class ResultsDialog extends Dialog{
         requestQueue = Volley.newRequestQueue(getContext());
         String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/"+ wins1Try +"/"
                 + wins2Try +"/"+ wins3Try +"/"+ wins4Try +"/"+ wins5Try +"/"+ wins6Try +"/"+ currentStreak +"/"+ maxStreak +"/"+ gamesPlayed
-                +"/"+id;
-        //String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/1/2/3/4/5/6/3/3/3/3";
+                +"/"+uniqueID;
 
         StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
+
+                response -> {
+                    try {
+                        new JSONArray(response);
+
+                    } catch (JSONException e) {
+                        Log.e("Database", e.getMessage(), e);
+                    }
+                },
+                error -> {
+                }
+        );
+
+        requestQueue.add(submitRequest);
+    }
+
+    public void makeNewAccount()
+    {
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        String requestURL = "https://studev.groept.be/api/a21pt203/makeNewUser/"+uniqueID;
+
+        Request submitRequest = new StringRequest(Request.Method.GET, requestURL,
 
                 response -> {
                     try {
@@ -193,6 +238,7 @@ public class ResultsDialog extends Dialog{
         );
 
         requestQueue.add(submitRequest);
+        readNewDialogData();
     }
 
 

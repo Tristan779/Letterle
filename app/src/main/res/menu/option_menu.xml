@@ -4,17 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/accountChangeMenu"
-        android:title="changeAccount"
-        android:icon="@drawable/ic_baseline_account_circle_24"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/statMenu"
-        android:title="stats"
-        android:icon="@drawable/ic_baseline_leaderboard_24"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/optionDifficulty_4"
         android:icon="@drawable/ic_baseline_looks_4_24"
         android:title="4"
@@ -32,30 +21,11 @@
         android:icon="@drawable/ic_baseline_looks_6_24"
         android:title="6"
         app:showAsAction="always" />
-
-
     <item
-        android:id="@+id/options"
-        android:title="Colours"
-        app:showAsAction="never">
-
-        <menu>
-
-            <item
-                android:id="@+id/colourOptionOriginal"
-                android:title="Original"/>
-
-            <item
-                android:id="@+id/colourOptionDark"
-                android:title="Dark"/>
-
-            <item
-                android:id="@+id/colourOptionVintage"
-                android:icon="@color/dark_yellow"
-                android:title="Vintage" />
+        android:id="@+id/statMenu"
+        android:icon="@drawable/ic_baseline_leaderboard_24"
+        android:title="stats"
+        app:showAsAction="always" />
 
 
-        </menu>
-
-    </item>
 </menu>

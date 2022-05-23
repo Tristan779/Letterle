@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -50,12 +49,10 @@ public class MainActivity extends AppCompatActivity {
     public int row;
     private ResultsDialog resultsDialog;
     private ConfirmationDialog confirmationDialog;
-    private AccountMenu accountMenu;
     public int difficulty;
     private int nextDifficulty;
     public int a;
     public int tries;
-    public String username;
 
 
     /*
@@ -105,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
         resultsDialog.readNewDialogData();
-        accountMenu = new AccountMenu(this);
         confirmationDialog = new ConfirmationDialog(this);
         a = 0;
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
@@ -193,6 +189,10 @@ public class MainActivity extends AppCompatActivity {
         setupNewGame(difficulty);
     }
 
+    public void onBtnClose_Clicked(View caller) {
+        resultsDialog.cancel();
+    }
+
     public void onBtnPlayAgainResults_Clicked(View caller) {
         resultsDialog.cancel();
         resetGame(false);
@@ -209,53 +209,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onBtnLogIn_Clicked(View caller) {
-        EditText thisTxtUsername = accountMenu.findViewById(R.id.txtUsername);
-        username = thisTxtUsername.getText().toString();
-        changeAccountToName(username);
-    }
-
-
-    public void changeAccountToName(String name)
-    {
-        if(row==0) {
-            if (accountMenu.getIdFromName(name) != 0) {
-                resultsDialog.setId(accountMenu.getIdFromName(name));
-                sendToastMessage("Logged into: " + name);
-            } else {
-                sendToastMessage("Dit account bestaat dus niet");
-            }
-        }
-        else{
-            sendToastMessage("Mag niet tijdens spel");
-        }
-    }
-
-    public void onBtnSignIn_Clicked(View caller) {
-        if (row==0) {
-            EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
-        username = thisTxtNewUsername.getText().toString();
-        accountMenu.makeNewAccount(username);
-        accountMenu.getNameAndIdFromDB();}
-        else {
-            sendToastMessage("Mag niet tijdens spel");
-        }
-    }
-
-    public void onBtnExit_Clicked(View caller) {
-        changeAccountToName(username);
-        {sendToastMessage("Account is: "+ username);}
-        //resultsDialog.readNewDialogData();
-        accountMenu.cancel();
-    }
-
     public void onBtnCheckBoard_Clicked(View caller) {
         resultsDialog.cancel();
         switchKeyBoardWithPlayAgain(1);
 
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -274,30 +232,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         } else {
-
-            switch ((item.getItemId())) {
-
-                case (R.id.colourOptionVintage) -> {
-                    setColourOption(2);
-                    return true;
-                }
-                case (R.id.colourOptionDark) -> {
-                    setColourOption(1);
-                    return true;
-                }
-                case (R.id.colourOptionOriginal) -> {
-                    setColourOption(0);
-                    return true;
-                }
-                case (R.id.statMenu) -> {
-                    resultsDialog.readNewDialogData();
-                    resultsDialog.show();
-                    resultsDialog.setContentView(R.layout.results);
-                    resultsDialog.setStatTiles();
-                }
-
-                case (R.id.accountChangeMenu) -> accountMenu.show();
-            }
+            resultsDialog.readNewDialogData();
+            resultsDialog.show();
+            resultsDialog.setContentView(R.layout.results);
+            resultsDialog.setStatTiles();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -350,10 +288,6 @@ public class MainActivity extends AppCompatActivity {
         getKeyButton(guessWord.charAt(index)).setBackgroundColor(color);
         getKeyButton(guessWord.charAt(index)).setTextColor(Color.WHITE);
         getTextKeyButton(guessWord.charAt(index)).setTextColor(Color.WHITE);
-    }
-
-    public void setColourOption(int option) {
-        //vintage = 2, dark = 1, original = 0
     }
 
     public void setupNewGame(int diff) {
@@ -493,6 +427,7 @@ public class MainActivity extends AppCompatActivity {
         resultsDialog.updateDialog(true, tries);
         resultsDialog.readNewDialogData();
         resultsDialog.show();
+        resultsDialog.setContentView(R.layout.game_end_results);
         resultsDialog.setStatTiles();
     }
 
@@ -501,6 +436,7 @@ public class MainActivity extends AppCompatActivity {
         resultsDialog.updateDialog(false, 0);
         resultsDialog.readNewDialogData();
         resultsDialog.show();
+        resultsDialog.setContentView(R.layout.game_end_results);
         resultsDialog.setStatTiles();
     }
 
