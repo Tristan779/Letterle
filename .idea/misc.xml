@@ -3,20 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1865" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/account_menu.xml" value="0.16168478260869565" />
         <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/board_4.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/board_5.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/content_change_account.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/game_end_results.xml" value="0.1" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/keyboard.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/main_activity.xml" value="0.1796875" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/results.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/layout/stats_clicked_results.xml" value="0.2509057971014493" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/menu/activity_main_drawer.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/menu/change_account.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Trist/AndroidStudioProjects/Letterle/app/src/main/res/menu/option_menu.xml" value="0.1796875" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.127" />
         <entry key="app/src/main/res/drawable/darkgray_border.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/default_background.xml" value="1.3987910766601563" />
@@ -31,11 +18,15 @@
         <entry key="app/src/main/res/drawable/yellow.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/yellow_tile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ textview_border.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/account_menu.xml" value="0.3418803418803419" />
         <entry key="app/src/main/res/layout/activity_a.xml" value="0.15589135424636572" />
         <entry key="app/src/main/res/layout/activity_diff_five_main.xml" value="0.20990600585937497" />
         <entry key="app/src/main/res/layout/activity_diff_four.xml" value="0.1302014010769504" />
         <entry key="app/src/main/res/layout/activity_diff_six.xml" value="0.12567395196444744" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3462142944335938" />
+        <entry key="app/src/main/res/layout/board_4.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/board_5.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/board_6.xml" value="0.2722222222222222" />
         <entry key="app/src/main/res/layout/confirmation.xml" value="0.3264880857605865" />
         <entry key="app/src/main/res/layout/content_main_activityy.xml" value="0.15589135424636572" />
         <entry key="app/src/main/res/layout/diff_five.xml" value="0.18888888888888888" />
@@ -44,8 +35,12 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.15589135424636572" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15072685539403213" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15589135424636572" />
+        <entry key="app/src/main/res/layout/game_end_results.xml" value="0.4380884806315106" />
         <entry key="app/src/main/res/layout/keyboard.xml" value="0.19934143870314083" />
-        <entry key="app/src/main/res/layout/results.xml" value="0.33170731707317075" />
+        <entry key="app/src/main/res/layout/main_activity.xml" value="0.24794006347656267" />
+        <entry key="app/src/main/res/layout/play_again.xml" value="0.25854214123006836" />
+        <entry key="app/src/main/res/layout/results.xml" value="0.34547576904296873" />
+        <entry key="app/src/main/res/layout/styles.xml" value="0.3574561403508772" />
         <entry key="app/src/main/res/layout/switch_item.xml" value="0.1175925925925926" />
         <entry key="app/src/main/res/layout/textview_border.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/title.xml" value="0.47029368082682294" />
@@ -57,7 +52,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

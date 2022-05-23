@@ -30,15 +30,15 @@ public class ResultsDialog extends Dialog{
     public Context context;
     private RequestQueue requestQueue;
     int id = 1;
-    int Wins1try;
-    int Wins2try;
-    int Wins3try;
-    int Wins4try;
-    int Wins5try;
-    int Wins6try;
-    int CurrentStreak;
-    int MaxStreak;
-    int GamesPlayed;
+    int wins1Try;
+    int wins2Try;
+    int wins3Try;
+    int wins4Try;
+    int wins5Try;
+    int wins6Try;
+    int currentStreak;
+    int maxStreak;
+    int gamesPlayed;
 
 
 
@@ -72,9 +72,7 @@ public class ResultsDialog extends Dialog{
     }
 
 
-    public void readNewDialogData()
-    {
-
+    public void readNewDialogData() {
         requestQueue = Volley.newRequestQueue(getContext());
         String requestURL = "https://studev.groept.be/api/a21pt203/getStats";
 
@@ -86,20 +84,20 @@ public class ResultsDialog extends Dialog{
                         for( int i = 0; i < responseArray.length(); i++ )
                         {
                             JSONObject curObject = responseArray.getJSONObject( i );
-                            int ThisID = curObject.getInt("id"); //primary key
-                            if(id == ThisID)
+                            int userID = curObject.getInt("id"); //primary key
+                            if(id == userID)
                             {
-                                Wins1try = curObject.getInt("Wins1try");
-                                Wins2try = curObject.getInt("Wins2try");
-                                Wins3try = curObject.getInt("Wins3try");
-                                Wins4try = curObject.getInt("Wins4try");
-                                Wins5try = curObject.getInt("Wins5try");
-                                Wins6try = curObject.getInt("Wins6try");
-                                CurrentStreak = curObject.getInt("CurrStreak");
-                                MaxStreak = curObject.getInt("MaxStreak");
-                                GamesPlayed = curObject.getInt("Played");
+                                wins1Try = curObject.getInt("Wins1try");
+                                wins2Try = curObject.getInt("Wins2try");
+                                wins3Try = curObject.getInt("Wins3try");
+                                wins4Try = curObject.getInt("Wins4try");
+                                wins5Try = curObject.getInt("Wins5try");
+                                wins6Try = curObject.getInt("Wins6try");
+                                currentStreak = curObject.getInt("CurrStreak");
+                                maxStreak = curObject.getInt("MaxStreak");
+                                gamesPlayed = curObject.getInt("Played");
                                 //System.out.println("-----------------------------------");
-                                //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
+                                //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+userID);
                             }
                         }
                     }
@@ -110,7 +108,6 @@ public class ResultsDialog extends Dialog{
                 },
 
                 error -> {
-                    ;
                 }
         );
 
@@ -118,28 +115,28 @@ public class ResultsDialog extends Dialog{
     }
 
     public void setStatTiles() {
+
         TextView maxStreak = findViewById(R.id.textViewMaxStreak_nr);
         TextView currentStreak = findViewById(R.id.textViewCurrentStreak_nr);
         TextView win = findViewById(R.id.textViewWin_nr);
         TextView played = findViewById(R.id.textViewPlayed_nr);
-        maxStreak.setText(String.valueOf(MaxStreak));
-        currentStreak.setText(String.valueOf(CurrentStreak));
-        float wins = Wins1try+Wins2try+Wins3try+Wins4try+Wins5try+Wins6try;
-        //System.out.println(Wins1try+" "+Wins2try+" "+Wins3try+" "+Wins4try+" "+Wins5try+" " + Wins6try);
+
+        maxStreak.setText(String.valueOf(this.maxStreak));
+        currentStreak.setText(String.valueOf(this.currentStreak));
+        float wins = wins1Try + wins2Try + wins3Try + wins4Try + wins5Try + wins6Try;
         System.out.println("Wins: "+wins);
-        if(GamesPlayed==0)
+        if(gamesPlayed == 0)
         {
-            win.setText(String.valueOf(0));
+            win.setText("0");
         }
         else{
-            float winPercent = wins/GamesPlayed*100;
+            float winPercent = wins/gamesPlayed * 100;
             win.setText(String.valueOf((int)winPercent));
         }
-        played.setText(String.valueOf(GamesPlayed));
+        played.setText(String.valueOf(gamesPlayed));
 
-        //test lijst
         List<Integer> list = new ArrayList<>(
-                Arrays.asList(Wins1try, Wins2try, Wins3try, Wins4try, Wins5try, Wins6try));
+                Arrays.asList(wins1Try, wins2Try, wins3Try, wins4Try, wins5Try, wins6Try));
 
         for(int i = 1; i < 7; i++){
             float fill = (float) list.get(i-1)/ (float) Collections.max(list);
@@ -150,35 +147,32 @@ public class ResultsDialog extends Dialog{
 
     public void updateDialog(boolean won, int tries)
     {
-        GamesPlayed++;
-        if(won)
-        {
-            CurrentStreak++;
-            if (CurrentStreak>MaxStreak)
-            {
-                MaxStreak++;
-            }
-            if(tries ==1)
-                Wins1try++;//op een propere manier dit prgrammeren voor alle tries!!
-            if(tries ==2)
-                Wins2try++;
-            if(tries ==3)
-                Wins3try++;
-            if(tries ==4)
-                Wins4try++;
-            if(tries ==5)
-                Wins5try++;
-            if(tries ==6)
-                Wins6try++;
+        gamesPlayed++;
 
+        if(won) {
+            currentStreak++;
+            if (currentStreak > maxStreak) {
+                maxStreak++;
+            }
+
+            switch (tries) {
+                case 1 -> wins1Try++;
+                case 2 -> wins2Try++;
+                case 3 -> wins3Try++;
+                case 4 -> wins4Try++;
+                case 5 -> wins5Try++;
+                case 6 -> wins6Try++;
+            }
         }
         if(!won)
         {
-            CurrentStreak=0;
+            currentStreak = 0;
         }
+
+
         requestQueue = Volley.newRequestQueue(getContext());
-        String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/"+Wins1try+"/"
-                +Wins2try+"/"+Wins3try+"/"+Wins4try+"/"+Wins5try+"/"+Wins6try+"/"+CurrentStreak+"/"+MaxStreak+"/"+GamesPlayed
+        String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/"+ wins1Try +"/"
+                + wins2Try +"/"+ wins3Try +"/"+ wins4Try +"/"+ wins5Try +"/"+ wins6Try +"/"+ currentStreak +"/"+ maxStreak +"/"+ gamesPlayed
                 +"/"+id;
         //String requestURL = "https://studev.groept.be/api/a21pt203/updateStatData/1/2/3/4/5/6/3/3/3/3";
 
@@ -195,7 +189,6 @@ public class ResultsDialog extends Dialog{
                     }
                 },
                 error -> {
-                    ;
                 }
         );
 

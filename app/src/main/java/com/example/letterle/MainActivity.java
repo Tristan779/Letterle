@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,19 +22,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.android.volley.RequestQueue;
-
 import java.util.Random;
 
 
@@ -42,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
     //------------------------------------------------------------------
     private String word = "";
     public String guessWord = "";
-    private List<String> possibleWords4 = new ArrayList<>();
-    private List<String> possibleWords5 = new ArrayList<>();
-    private List<String> possibleWords6 = new ArrayList<>();
+    private final List<String> possibleWords4 = new ArrayList<>();
+    private final List<String> possibleWords5 = new ArrayList<>();
+    private final List<String> possibleWords6 = new ArrayList<>();
+    private List<String> possibleWords = new ArrayList<>();
     //------------------------------------------------------------------
 
     public int column;
@@ -54,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private AccountMenu accountMenu;
     public int difficulty;
     private int nextDifficulty;
-    private RequestQueue requestQueue;
     public int a;
     public int tries;
-    public int statState = 1;
     public String username;
 
 
@@ -80,17 +77,6 @@ public class MainActivity extends AppCompatActivity {
     public TextView getTextKeyButton(char letter) {
         int id = getResources().getIdentifier("textViewButton_" + Character.toUpperCase(letter), "id", this.getPackageName());
         return findViewById(id);
-    }
-
-    public List<String> getRightPossibleWords()
-    {
-        if(difficulty == 4)
-            return possibleWords4;
-        if(difficulty == 5)
-            return possibleWords5;
-        if(difficulty == 6)
-            return possibleWords6;
-        return null;
     }
 
     public int getColorKey(int index) {
@@ -167,55 +153,55 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnEnter_Clicked(View caller) {
         if (guessWord.length() == difficulty) {
-            if (guessWord.equals(word)) {
+            System.out.println(tries);
+            if (possibleWords.contains(guessWord)) {
                 tries++;
-                resultsDialog.updateDialog(true, tries);
-                wordGuessed();
-                showAnimation("won", row);
-            }
-            if(tries == 5)
-            {
-                resultsDialog.updateDialog(false, 0);
-                sendToastMessage("No more tries, you lost :(");
-                resultsDialog.readNewDialogData();
-                resultsDialog.show();
-                resultsDialog.setStatTiles();
-
-            }
-            if (getRightPossibleWords().contains(guessWord)) {
                 for (int index = 0; index < difficulty; index++) {
                     setColorKey(index, getColorKey(index));
                     setColorTile(index);
+                    showAnimation("revealletter", row);
                 }
-                showAnimation("revealletter", row);
-                row++;
-                column = 0;
-                guessWord = "";
-                tries++;
+                if (guessWord.equals(word)) {
+                    gameWon();
+                }
+
+                else {
+                    row++;
+                    column = 0;
+                    guessWord = "";
+                }
+
+
+                if (tries == 6) {
+                    gameLost();
+                }
             } else {
                 sendToastMessage("Not in word list");
                 showAnimation("error", row);
             }
+
         } else {
             sendToastMessage("Not enough letters");
             showAnimation("error", row);
         }
+
     }
 
     public void onBtnPlayAgain_Clicked(View caller) {
-        resultsDialog.cancel();
-        if (statState == 0){
-            resetGame(false);
-            setupNewGame(difficulty);
-        }
+        switchKeyBoardWithPlayAgain(0);
+        resetGame(false);
+        setupNewGame(difficulty);
+    }
 
+    public void onBtnPlayAgainResults_Clicked(View caller) {
+        resultsDialog.cancel();
+        resetGame(false);
+        setupNewGame(difficulty);
     }
 
     public void onBtnYes_Clicked(View caller) {
         confirmationDialog.cancel();
-        resultsDialog.updateDialog(false, 0);
-        difficulty = nextDifficulty;
-        changeBoard(difficulty);
+        gameForciblyLost();
     }
 
     public void onBtnNo_Clicked(View caller) {
@@ -245,24 +231,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onBtnMakeAccount_Clicked(View caller) {
-        if (row==0)
-        {EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
+    public void onBtnSignIn_Clicked(View caller) {
+        if (row==0) {
+            EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
         username = thisTxtNewUsername.getText().toString();
         accountMenu.makeNewAccount(username);
         accountMenu.getNameAndIdFromDB();}
-        else
-        {
+        else {
             sendToastMessage("Mag niet tijdens spel");
         }
     }
 
     public void onBtnExit_Clicked(View caller) {
         changeAccountToName(username);
-        {sendToastMessage("Account is: "+username);}
-        resultsDialog.readNewDialogData();
+        {sendToastMessage("Account is: "+ username);}
+        //resultsDialog.readNewDialogData();
         accountMenu.cancel();
     }
+
+    public void onBtnCheckBoard_Clicked(View caller) {
+        resultsDialog.cancel();
+        switchKeyBoardWithPlayAgain(1);
+
+    }
+
 
 
     @Override
@@ -278,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 sendToastMessage("Difficulty is already " + clickedDifficulty);
-                System.out.println(difficulty + " == " + clickedDifficulty);
             }
             return true;
 
@@ -301,13 +292,11 @@ public class MainActivity extends AppCompatActivity {
                 case (R.id.statMenu) -> {
                     resultsDialog.readNewDialogData();
                     resultsDialog.show();
+                    resultsDialog.setContentView(R.layout.results);
                     resultsDialog.setStatTiles();
-                    statState = 1; //is 1 voor op menu te klikken, is 0 voor gewoon einde spel
                 }
 
-                case (R.id.accountChangeMenu) -> {
-                    accountMenu.show();
-                }
+                case (R.id.accountChangeMenu) -> accountMenu.show();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -372,25 +361,23 @@ public class MainActivity extends AppCompatActivity {
         switch (diff) {
             case 4 -> {
                 difficulty = 4;
-                int num = rn.nextInt(possibleWords4.size());
-                word = possibleWords4.get(num);
-                System.out.println(word);
+                possibleWords = possibleWords4;
             }
 
             case 5 -> {
                 difficulty = 5;
-                int num = rn.nextInt(possibleWords5.size());
-                word = possibleWords5.get(num);
-                System.out.println(word);
+                possibleWords = possibleWords5;
             }
             case 6 -> {
                 difficulty = 6;
-                int num = rn.nextInt(possibleWords6.size());
-                word = possibleWords6.get(num);
-                System.out.println(word);
+                possibleWords = possibleWords6;
             }
 
         }
+        switchKeyBoardWithPlayAgain(0);
+        int num = rn.nextInt(possibleWords.size());
+        word = possibleWords.get(num);
+        System.out.println(word);
 
     }
 
@@ -415,23 +402,18 @@ public class MainActivity extends AppCompatActivity {
          ########################################
      */
 
-    public void addPossibleWords(String link, String kolom, List<String> ThisPossibleWords)
+    public void addPossibleWords(String link, String column, List<String> possibleWords)
     {
-        requestQueue = Volley.newRequestQueue(getContext());
-        String requestURL = link;
-
-        StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,
-
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, link, null,
                 response -> {
                     try {
-                        JSONArray responseArray = new JSONArray(response);
-                        String responseString = "";
-                        for( int i = 0; i < responseArray.length(); i++ )
+                        String responseString;
+                        for( int i = 0; i < response.length(); i++ )
                         {
-                            JSONObject curObject = responseArray.getJSONObject( i );
-                            responseString = curObject.getString( kolom );
-                            ThisPossibleWords.add(responseString);
-
+                            JSONObject curObject = response.getJSONObject( i );
+                            responseString = curObject.getString( column );
+                            possibleWords.add(responseString);
                         }
                         a++;
                         if(a==3) {
@@ -445,7 +427,6 @@ public class MainActivity extends AppCompatActivity {
                 },
 
                 error -> {
-                    ;
                 }
         );
 
@@ -453,10 +434,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    private MainActivity getContext() {
-        return this;
-    }
 
     /*
          ########################################
@@ -488,20 +465,43 @@ public class MainActivity extends AppCompatActivity {
         resetGame(true);
     }
 
+    public void switchKeyBoardWithPlayAgain(int index){
+        ViewFlipper vf = findViewById(R.id.vf);
+        vf.setDisplayedChild(index);
+
+        if(index == 1){
+            TextView correctWord = findViewById(R.id.textViewCorrectWord);
+            correctWord.setText(word.toUpperCase());
+        }
+    }
+
 
     public void sendToastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    public void wordGuessed() {
+
+
+    public void gameForciblyLost() {
+        difficulty = nextDifficulty;
+        changeBoard(difficulty);
+        resultsDialog.updateDialog(false, 0);
+    }
+
+    public void gameWon() {
         sendToastMessage("Great");
-        showAnimation("won", row);
-        statState = 0;
+        resultsDialog.updateDialog(true, tries);
         resultsDialog.readNewDialogData();
         resultsDialog.show();
         resultsDialog.setStatTiles();
-
     }
 
+    public void gameLost() {
+        sendToastMessage("No more tries, you lost :(");
+        resultsDialog.updateDialog(false, 0);
+        resultsDialog.readNewDialogData();
+        resultsDialog.show();
+        resultsDialog.setStatTiles();
+    }
 
 }

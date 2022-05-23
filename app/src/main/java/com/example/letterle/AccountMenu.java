@@ -70,7 +70,6 @@ public class AccountMenu extends Dialog{
                     }
                 },
                 error -> {
-                    ;
                 }
         );
 
@@ -107,7 +106,6 @@ public class AccountMenu extends Dialog{
                     }
                 },
                 error -> {
-                    ;
                 }
         );
 

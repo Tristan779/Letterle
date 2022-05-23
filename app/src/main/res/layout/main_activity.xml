@@ -28,22 +28,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/includeKeyboard"
+        app:layout_constraintBottom_toTopOf="@+id/vf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/includeTitle" />
 
 
-    <include
-        android:id="@+id/includeKeyboard"
-        layout="@layout/keyboard"
-        android:layout_width="match_parent"
+    <ViewFlipper
+        android:id="@+id/vf"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+        <include android:id="@+id/includeKeyboard" layout="@layout/keyboard" />
+        <include android:id="@+id/includePlayAgain" layout="@layout/play_again" />
+
+
+    </ViewFlipper>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
