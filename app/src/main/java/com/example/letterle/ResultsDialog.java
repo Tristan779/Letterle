@@ -102,9 +102,6 @@ public class ResultsDialog extends Dialog{
                                 //System.out.println("1try: "+Wins1try+" 5try: "+Wins5try+" curr: "+CurrentStreak+" -----"+id+ThisID);
                             }
                         }
-
-
-
                     }
                     catch( JSONException e )
                     {

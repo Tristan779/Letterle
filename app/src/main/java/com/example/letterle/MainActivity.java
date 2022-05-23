@@ -232,24 +232,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeAccountToName(String name)
     {
-        if(accountMenu.getIdFromName(name)!=0) {
-            resultsDialog.setId(accountMenu.getIdFromName(name));
-            sendToastMessage("Logged into: "+name);
+        if(row==0) {
+            if (accountMenu.getIdFromName(name) != 0) {
+                resultsDialog.setId(accountMenu.getIdFromName(name));
+                sendToastMessage("Logged into: " + name);
+            } else {
+                sendToastMessage("Dit account bestaat dus niet");
+            }
         }
-        else
-        {sendToastMessage("Dit account bestaat dus niet");}
+        else{
+            sendToastMessage("Mag niet tijdens spel");
+        }
     }
 
     public void onBtnMakeAccount_Clicked(View caller) {
-        EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
+        if (row==0)
+        {EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
         username = thisTxtNewUsername.getText().toString();
         accountMenu.makeNewAccount(username);
-        accountMenu.getNameAndIdFromDB();
+        accountMenu.getNameAndIdFromDB();}
+        else
+        {
+            sendToastMessage("Mag niet tijdens spel");
+        }
     }
 
     public void onBtnExit_Clicked(View caller) {
         changeAccountToName(username);
-        {sendToastMessage("Account is"+username);}
+        {sendToastMessage("Account is: "+username);}
+        resultsDialog.readNewDialogData();
         accountMenu.cancel();
     }
 
