@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/accountChangeMenu"
+        android:title="changeAccount"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/statMenu"
         android:title="stats"
         android:icon="@drawable/ic_baseline_leaderboard_24"

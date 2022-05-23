@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,12 +51,15 @@ public class MainActivity extends AppCompatActivity {
     public int row;
     private ResultsDialog resultsDialog;
     private ConfirmationDialog confirmationDialog;
+    private AccountMenu accountMenu;
     public int difficulty;
     private int nextDifficulty;
     private RequestQueue requestQueue;
     public int a;
     public int tries;
     public int statState = 1;
+    public String username;
+
 
     /*
         #############
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
         resultsDialog.readNewDialogData();
+        accountMenu = new AccountMenu(this);
         confirmationDialog = new ConfirmationDialog(this);
         a = 0;
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
@@ -218,6 +223,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onBtnLogIn_Clicked(View caller) {
+        EditText thisTxtUsername = accountMenu.findViewById(R.id.txtUsername);
+        username = thisTxtUsername.getText().toString();
+        changeAccountToName(username);
+    }
+
+
+    public void changeAccountToName(String name)
+    {
+        if(accountMenu.getIdFromName(name)!=0) {
+            resultsDialog.setId(accountMenu.getIdFromName(name));
+            sendToastMessage("Logged into: "+name);
+        }
+        else
+        {sendToastMessage("Dit account bestaat dus niet");}
+    }
+
+    public void onBtnMakeAccount_Clicked(View caller) {
+        EditText thisTxtNewUsername = accountMenu.findViewById(R.id.txtNewUsername);
+        username = thisTxtNewUsername.getText().toString();
+        accountMenu.makeNewAccount(username);
+        accountMenu.getNameAndIdFromDB();
+    }
+
+    public void onBtnExit_Clicked(View caller) {
+        changeAccountToName(username);
+        {sendToastMessage("Account is"+username);}
+        accountMenu.cancel();
+    }
 
 
     @Override
@@ -254,11 +288,14 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case (R.id.statMenu) -> {
-                    //sendToastMessage("check");
                     resultsDialog.readNewDialogData();
                     resultsDialog.show();
                     resultsDialog.setStatTiles();
                     statState = 1; //is 1 voor op menu te klikken, is 0 voor gewoon einde spel
+                }
+
+                case (R.id.accountChangeMenu) -> {
+                    accountMenu.show();
                 }
             }
         }
