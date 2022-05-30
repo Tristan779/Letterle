@@ -1,8 +1,6 @@
 package com.example.letterle;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -219,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (Arrays.asList("4", "5", "6").contains(item.getTitle())) {
+        if (Arrays.asList("4", "5", "6").contains((String) item.getTitle())) {
             int clickedDifficulty = Integer.parseInt(item.getTitle().toString());
             if (difficulty != clickedDifficulty) {
                 if (row > 0) {
