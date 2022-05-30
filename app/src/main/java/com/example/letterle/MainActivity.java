@@ -1,5 +1,8 @@
 package com.example.letterle;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,22 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     //------------------------------------------------------------------
     private String word = "";
-    public String guessWord = "";
+    private String guessWord = "";
     private final List<String> possibleWords4 = new ArrayList<>();
     private final List<String> possibleWords5 = new ArrayList<>();
     private final List<String> possibleWords6 = new ArrayList<>();
     private List<String> possibleWords = new ArrayList<>();
     //------------------------------------------------------------------
-
-    public int column;
-    public int row;
     private ResultsDialog resultsDialog;
     private ConfirmationDialog confirmationDialog;
-    public int difficulty;
+    //------------------------------------------------------------------
+    private int column;
+    private int row;
+    private int difficulty;
     private int nextDifficulty;
-    public int a;
-    public int tries;
-
+    private int count;
+    private int tries;
+   //------------------------------------------------------------------
 
     /*
         #############
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     /*
         ##################
         #   Overrides    #
@@ -101,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         resultsDialog = new ResultsDialog(this);
-        resultsDialog.readNewDialogData();
+        resultsDialog.getDb().grabUserStats();
         confirmationDialog = new ConfirmationDialog(this);
-        a = 0;
+        count = 0;
         addPossibleWords("https://studev.groept.be/api/a21pt203/getFiveList", "FiveLetter", possibleWords5);
-        addPossibleWords("https://studev.groept.be/api/a21pt203/getSixList","SixLetter", possibleWords6);
-        addPossibleWords("https://studev.groept.be/api/a21pt203/getFourList","FourLetter", possibleWords4);
+        addPossibleWords("https://studev.groept.be/api/a21pt203/getSixList", "SixLetter", possibleWords6);
+        addPossibleWords("https://studev.groept.be/api/a21pt203/getFourList", "FourLetter", possibleWords4);
 
     }
 
@@ -119,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*
          ########################################
-         #   Letter, Delete, Enter, PlayAgain   #
+         #                Clicked               #
          ########################################
      */
 
@@ -159,9 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (guessWord.equals(word)) {
                     gameWon();
-                }
-
-                else {
+                } else {
                     row++;
                     column = 0;
                     guessWord = "";
@@ -232,10 +234,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         } else {
-            resultsDialog.readNewDialogData();
+            resultsDialog.getDb().grabUserStats();
             resultsDialog.show();
             resultsDialog.setContentView(R.layout.results);
-            resultsDialog.setStatTiles();
+            resultsDialog.setStatDialog();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -248,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
          ########################################
      */
 
-    private void resetGame(boolean changedDifficulty) {
-        if(!changedDifficulty) {
+    public void resetGame(boolean changedDifficulty) {
+        if (!changedDifficulty) {
             resetColorBoard();
         }
         resetColorKeyBoard();
@@ -327,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setBackground(getTile(index, row), R.drawable.gray_tile);
         }
-       getTile(index, row).setTextColor(Color.WHITE);
+        getTile(index, row).setTextColor(Color.WHITE);
     }
 
     /*
@@ -336,27 +338,23 @@ public class MainActivity extends AppCompatActivity {
          ########################################
      */
 
-    public void addPossibleWords(String link, String column, List<String> possibleWords)
-    {
+    public void addPossibleWords(String link, String column, List<String> possibleWords) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, link, null,
                 response -> {
                     try {
                         String responseString;
-                        for( int i = 0; i < response.length(); i++ )
-                        {
-                            JSONObject curObject = response.getJSONObject( i );
-                            responseString = curObject.getString( column );
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject curObject = response.getJSONObject(i);
+                            responseString = curObject.getString(column);
                             possibleWords.add(responseString);
                         }
-                        a++;
-                        if(a==3) {
+                        count++;
+                        if (count == 3) {
                             setupNewGame(5);
                         }
-                    }
-                    catch( JSONException e )
-                    {
-                        Log.e( "Database", e.getMessage(), e );
+                    } catch (JSONException e) {
+                        Log.e("Database", e.getMessage(), e);
                     }
                 },
 
@@ -380,14 +378,13 @@ public class MainActivity extends AppCompatActivity {
             Animation animation = null;
             switch (type) {
                 case "error" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.lefttoright);
-                case "won" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
                 case "revealletter" -> animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.revealletter);
             }
             getTile(i, row).startAnimation(animation);
         }
     }
 
-    public void changeBoard(int difficulty){
+    public void changeBoard(int difficulty) {
         int layoutID = getResources().getIdentifier("board_" + difficulty, "layout", this.getPackageName());
         ConstraintLayout mainLayout = findViewById(R.id.includeBoard);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -399,45 +396,43 @@ public class MainActivity extends AppCompatActivity {
         resetGame(true);
     }
 
-    public void switchKeyBoardWithPlayAgain(int index){
+    public void switchKeyBoardWithPlayAgain(int index) {
         ViewFlipper vf = findViewById(R.id.vf);
         vf.setDisplayedChild(index);
 
-        if(index == 1){
+        if (index == 1) {
             TextView correctWord = findViewById(R.id.textViewCorrectWord);
             correctWord.setText(word.toUpperCase());
         }
     }
-
 
     public void sendToastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
 
-
     public void gameForciblyLost() {
         difficulty = nextDifficulty;
         changeBoard(difficulty);
-        resultsDialog.updateDialog(false, 0);
+        resultsDialog.getDb().updateUserStats(false, 0);
     }
 
     public void gameWon() {
         sendToastMessage("Great");
-        resultsDialog.updateDialog(true, tries);
-        resultsDialog.readNewDialogData();
+        resultsDialog.getDb().updateUserStats(true, tries);
+        resultsDialog.getDb().grabUserStats();
         resultsDialog.show();
         resultsDialog.setContentView(R.layout.game_end_results);
-        resultsDialog.setStatTiles();
+        resultsDialog.setStatDialog();
     }
 
     public void gameLost() {
         sendToastMessage("No more tries, you lost :(");
-        resultsDialog.updateDialog(false, 0);
-        resultsDialog.readNewDialogData();
+        resultsDialog.getDb().updateUserStats(false, 0);
+        resultsDialog.getDb().grabUserStats();
         resultsDialog.show();
         resultsDialog.setContentView(R.layout.game_end_results);
-        resultsDialog.setStatTiles();
+        resultsDialog.setStatDialog();
     }
 
 }

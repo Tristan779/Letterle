@@ -29,7 +29,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/yellow"
+        android:backgroundTint="@color/green"
         android:onClick="onBtnPlayAgain_Clicked"
         android:text="Play Again"
         app:layout_constraintBottom_toBottomOf="parent"
