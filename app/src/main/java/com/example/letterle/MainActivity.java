@@ -401,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
         if (index == 1) {
             TextView correctWord = findViewById(R.id.textViewCorrectWord);
             correctWord.setText(word.toUpperCase());
+            sendToastMessage(word.toUpperCase());
         }
     }
 

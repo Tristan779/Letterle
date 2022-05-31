@@ -71,8 +71,7 @@ public class ResultsDialog extends Dialog{
         winSix.setText(String.valueOf(db.getWins6Try()));
 
         float wins = db.getWins1Try() + db.getWins2Try() + db.getWins3Try() +db.getWins4Try() + db.getWins5Try() + db.getWins6Try();
-        if(db.getGamesPlayed() == 0)
-        {
+        if(db.getGamesPlayed() == 0) {
             win.setText("0");
         }
         else{
